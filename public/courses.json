@@ -1,40 +1,93 @@
 [
   {
     "id": 1,
-    "is_censured": true,
-    "name": "Comprendre les préjugés sociaux",
-    "subject": "Sociologie",
-    "level": "débutant",
-    "duration": 60,
-    "description": "<p>Ce cours a pour but d'explorer le thème des préjugés et des stéréotypes sociaux à travers une approche critique. Il vise à sensibiliser les participants aux effets néfastes des idées préconçues et à encourager une réflexion sur l'égalité et le respect entre les différentes cultures et groupes sociaux.</p><ul><li><strong>Objectif principal :</strong> Comprendre comment les préjugés peuvent influencer la société.</li><li><strong>Public cible :</strong> Toute personne désireuse d'en apprendre davantage sur les préoccupations socioculturelles actuelles.</li><li><strong>Durée :</strong> 60 minutes</li></ul>",
+    "is_censured": false,
+    "name": "Création de Sites Web Dynamiques avec Next.js",
+    "subject": "Développement Web",
+    "level": "Intermédiaire",
+    "duration": 240,
+    "description": "<p>Ce cours vous initiera à la création d'applications Web en utilisant <strong>Next.js</strong>. Nous aborderons les concepts essentiels et les meilleures pratiques pour développer des sites Web performants et évolutifs.</p><ul><li><strong>Public cible :</strong> Développeurs ayant des connaissances de base en JavaScript et React.</li><li><strong>Objectifs d'apprentissage :</strong> Maîtriser les concepts fondamentaux de Next.js et créer une application Web complète.</li></ul>",
     "course_outline": [
       {
-        "title": "Introduction aux préjugés sociaux",
-        "abstract": "Une introduction aux notions de préjugés, stéréotypes et discrimination.",
-        "duration": 10,
-        "pedagogical_objectives": "Comprendre les concepts de préjugés et d'oppression sociale.",
-        "content": "<p>Les préjugés sont des jugements faits à l'encontre d'un groupe sans tenir compte de la diversité au sein de ce groupe. <strong>Il est crucial de les aborder afin de démystifier leurs origines.</strong></p><ul><li>Différence entre préjugés et discrimination</li><li>Exemples de préjugés courants dans la société</li></ul>"
+        "title": "Introduction à Next.js",
+        "abstract": "Présentation générale du framework et de ses avantages.",
+        "duration": 30,
+        "pedagogical_objectives": "Comprendre ce qu'est Next.js et pourquoi l'utiliser pour le développement web.",
+        "content": "<p>Next.js est un framework basé sur React qui facilite le développement d'applications web. Voici quelques avantages :</p><ul><li><strong>Rendu côté serveur</strong> pour une meilleure performance SEO.</li><li><strong>Génération de pages statiques</strong> pour des temps de chargement rapides.</li></ul><p>Nous allons aborder les étapes d'installation et de configuration de votre environnement de développement :</p><pre><code>npx create-next-app@latest nom-de-votre-app</code></pre>"
       },
       {
-        "title": "Les effets des préjugés sur la société",
-        "abstract": "Analyse des impacts des préjugés sur les relations interpersonnelles et la culture.",
-        "duration": 20,
-        "pedagogical_objectives": "Analyser comment les préjugés affectent les individus et la société.",
-        "content": "<p>Les préjugés peuvent causer des divisions et des maux dans la société. <strong>Il est essentiel d'examiner ces impacts.</strong></p><ul><li>Démarche historique des préjugés</li><li>Exemples concrets de préjugés dans la société moderne</li></ul>"
+        "title": "Routage dans Next.js",
+        "abstract": "Comprendre le système de routage pour naviguer entre les pages.",
+        "duration": 30,
+        "pedagogical_objectives": "Savoir créer et gérer des routes dans une application Next.js.",
+        "content": "<p>Next.js utilise un système de fichiers pour le routage. Chaque fichier .js dans le dossier <strong>pages</strong> correspond à une route.</p><p>Voici un exemple de création d'une page :</p><pre><code>function About() {\n  return <h1>À propos de nous</h1>;\n}\n\nexport default About;</code></pre><p>Cela créera automatiquement une route <strong>/about</strong>.</p>"
       },
       {
-        "title": "Comment surmonter les préjugés ?",
-        "abstract": "Stratégies pour lutter contre les préjugés et promouvoir l'inclusion.",
-        "duration": 15,
-        "pedagogical_objectives": "Développer des stratégies personnelles et communautaires pour combattre les préjugés.",
-        "content": "<p>Il est possible de surmonter les préjugés par l'éducation et le dialogue. <strong>Découvrons comment.</strong></p><ul><li>Rôle de l'éducation dans la lutte contre les préjugés</li><li>Méthodes de dialogue interculturel</li></ul>"
+        "title": "Gestion des données avec Next.js",
+        "abstract": "Apprendre à récupérer des données avec les méthodes de Next.js.",
+        "duration": 50,
+        "pedagogical_objectives": "Intégrer des API et gérer des données dans une application.",
+        "content": "<p>Next.js propose plusieurs méthodes pour récupérer des données :</p><ul><li><strong>getStaticProps</strong> pour la génération de pages statiques.</li><li><strong>getServerSideProps</strong> pour le rendu côté serveur.</li></ul><p>Voici un exemple d'utilisation de <strong>getStaticProps</strong> :</p><pre><code>export async function getStaticProps() {\n  const res = await fetch('https://api.example.com/data');\n  const data = await res.json();\n  return { props: { data } };\n}</code></pre>"
       },
       {
-        "title": "Conclusion et discussions",
-        "abstract": "Synthèse des points clés abordés et invitation à la discussion.",
-        "duration": 15,
-        "pedagogical_objectives": "Encourager la discussion sur les idées partagées lors du cours.",
-        "content": "<p>Ce cours vise à encourager une réflexion en profondeur sur la nature des préjugés. <strong>Discutons ensemble de ce que nous avons appris.</strong></p><ul><li>Points de rappel sur les thèmes abordés</li><li>Discussion ouverte avec les participants</li></ul>"
+        "title": "Déploiement d'une application Next.js",
+        "abstract": "Explorer comment déployer une application Next.js sur Vercel.",
+        "duration": 50,
+        "pedagogical_objectives": "Savoir déployer une application Next.js sur un hébergement.",
+        "content": "<p>Une fois votre application développée, vous pouvez la déployer facilement sur Vercel.</p><p>Voici les étapes à suivre :</p><ul><li><strong>Créer un compte Vercel</strong></li><li><strong>Importer votre projet</strong> depuis GitHub</li><li><strong>Configurer les paramètres</strong> (variables d'environnement, etc.)</li></ul><p>Une fois le déploiement effectué, votre application est accessible en ligne !</p>"
+      },
+      {
+        "title": "Conclusion et Ressources supplémentaires",
+        "abstract": "Récapitulatif du cours et fourniture de ressources pour aller plus loin.",
+        "duration": 30,
+        "pedagogical_objectives": "Synthétiser les apprentissages et fournir des pistes pour se perfectionner.",
+        "content": "<p>Nous avons couvert les bases de Next.js :</p><ul><li>Installation et configuration</li><li>Routage et gestion des données</li><li>Déploiement</li></ul><p><strong>Ressources supplémentaires :</strong></p><ul><li><a href=\"https://nextjs.org/docs\" target=\"_blank\">Documentation officielle de Next.js</a></li><li><a href=\"https://vercel.com/docs\" target=\"_blank\">Vercel Documentation</a></li></ul>"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "is_censured": false,
+    "name": "Création de site web avec Nuxt.js",
+    "subject": "Développement Web",
+    "level": "Débutant",
+    "duration": 180,
+    "description": "<p>Ce cours est conçu pour les débutants qui souhaitent se lancer dans le développement de sites web modernes à l'aide de <strong>Nuxt.js</strong>, un framework basé sur Vue.js. Vous apprendrez les bases du framework, comment créer des composants, gérer le routage, et déployer votre projet.</p><ul><li><strong>Prérequis :</strong> Connaissances de base en HTML, CSS et JavaScript.</li><li><strong>Objectif :</strong> Être capable de créer un site web complet avec Nuxt.js.</li></ul>",
+    "course_outline": [
+      {
+        "title": "Introduction à Nuxt.js",
+        "abstract": "Présentation du framework et de ses avantages pour le développement web.",
+        "duration": 30,
+        "pedagogical_objectives": "Comprendre ce qu'est Nuxt.js et ses fonctionnalités principales.",
+        "content": "<p>Nuxt.js est un framework pour créer des applications Vue.js qui aide à créer des applications universelles. Voici quelques avantages de Nuxt.js :</p><ul><li><strong>Routage automatique</strong> : géré grâce au système de fichiers.</li><li><strong>Rendu côté serveur</strong> : pour améliorer le SEO et la performance.</li></ul><p>Exemple de la structure d'un projet Nuxt.js :</p><pre><code>my-nuxt-project/\n├── assets/\n├── components/\n├── layouts/\n├── pages/\n├── plugins/\n├── static/\n├── store/\n└── nuxt.config.js\n</code></pre>"
+      },
+      {
+        "title": "Installation de Nuxt.js",
+        "abstract": "Apprenez à installer Nuxt.js et à configurer votre projet.",
+        "duration": 30,
+        "pedagogical_objectives": "Savoir installer Nuxt.js et créer un nouveau projet.",
+        "content": "<p>Pour commencer, vous devez installer <strong>Node.js</strong>. Une fois Node.js installé, vous pouvez créer un nouveau projet Nuxt.js avec la commande suivante :</p><pre><code>npx create-nuxt-app my-project\n</code></pre><p>Cette commande va vous guider à travers les étapes de configuration de votre application, vous permettant de choisir des options comme le gestionnaire de paquet et le framework CSS.</p>"
+      },
+      {
+        "title": "Création de Pages",
+        "abstract": "Comprenez comment créer des pages dans Nuxt.js et gérer la navigation.",
+        "duration": 30,
+        "pedagogical_objectives": "Créer des pages et configurer le routage dans Nuxt.js.",
+        "content": "<p>Nuxt.js utilise un système de fichiers pour gérer le routage. Chaque fichier dans le répertoire <strong>pages</strong> correspond à une route. Par exemple :</p><pre><code>pages/\n├── index.vue  // correspond à la route '/'\n└── about.vue  // correspond à la route '/about'\n</code></pre><p>Pour naviguer entre les pages, utilisez le composant <strong>&lt;nuxt-link&gt;</strong> :</p><pre><code>&lt;nuxt-link to=&quot;/about&quot;&gt;About&lt;/nuxt-link&gt;\n</code></pre>"
+      },
+      {
+        "title": "Création de Composants",
+        "abstract": "Apprenez à créer et à utiliser des composants dans Nuxt.js.",
+        "duration": 30,
+        "pedagogical_objectives": "Savoir créer des composants réutilisables dans votre application.",
+        "content": "<p>Les composants dans Nuxt.js fonctionnent comme dans Vue.js. Créez un fichier dans le répertoire <strong>components</strong> :</p><pre><code>components/\n└── MyComponent.vue\n</code></pre><p>Contenu du fichier <strong>MyComponent.vue</strong> :</p><pre><code>&lt;template&gt;\n  &lt;div&gt;\n    &lt;h1&gt;Bonjour, je suis un composant !&lt;/h1&gt;\n  &lt;/div&gt;\n&lt;/template&gt;\n\n&lt;script&gt;\nexport default {\n  name: 'MyComponent'\n}\n&lt;/script&gt;\n</code></pre><p>Pour utiliser le composant dans une page, ajoutez-le simplement à la section <strong>&lt;template&gt;</strong> de votre page.</p>"
+      },
+      {
+        "title": "Déploiement de votre application",
+        "abstract": "Comprenez comment déployer votre application Nuxt.js en production.",
+        "duration": 30,
+        "pedagogical_objectives": "Apprendre les différentes méthodes de déploiement d'une application Nuxt.js.",
+        "content": "<p>Une fois votre application prête, vous pouvez la déployer de différentes manières. Pour construire votre application pour la production, utilisez :</p><pre><code>npm run build\n</code></pre><p>Cela préparera votre application pour être servie. Vous pouvez la déployer sur des services comme <strong>Vercel</strong> ou <strong>Netlify</strong> facilement.</p>"
       }
     ]
   }
