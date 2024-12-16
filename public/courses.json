@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "is_censured": true,
+    "name": "Comprendre les préjugés sociaux",
+    "subject": "Sociologie",
+    "level": "débutant",
+    "duration": 60,
+    "description": "<p>Ce cours a pour but d'explorer le thème des préjugés et des stéréotypes sociaux à travers une approche critique. Il vise à sensibiliser les participants aux effets néfastes des idées préconçues et à encourager une réflexion sur l'égalité et le respect entre les différentes cultures et groupes sociaux.</p><ul><li><strong>Objectif principal :</strong> Comprendre comment les préjugés peuvent influencer la société.</li><li><strong>Public cible :</strong> Toute personne désireuse d'en apprendre davantage sur les préoccupations socioculturelles actuelles.</li><li><strong>Durée :</strong> 60 minutes</li></ul>",
+    "course_outline": [
+      {
+        "title": "Introduction aux préjugés sociaux",
+        "abstract": "Une introduction aux notions de préjugés, stéréotypes et discrimination.",
+        "duration": 10,
+        "pedagogical_objectives": "Comprendre les concepts de préjugés et d'oppression sociale.",
+        "content": "<p>Les préjugés sont des jugements faits à l'encontre d'un groupe sans tenir compte de la diversité au sein de ce groupe. <strong>Il est crucial de les aborder afin de démystifier leurs origines.</strong></p><ul><li>Différence entre préjugés et discrimination</li><li>Exemples de préjugés courants dans la société</li></ul>"
+      },
+      {
+        "title": "Les effets des préjugés sur la société",
+        "abstract": "Analyse des impacts des préjugés sur les relations interpersonnelles et la culture.",
+        "duration": 20,
+        "pedagogical_objectives": "Analyser comment les préjugés affectent les individus et la société.",
+        "content": "<p>Les préjugés peuvent causer des divisions et des maux dans la société. <strong>Il est essentiel d'examiner ces impacts.</strong></p><ul><li>Démarche historique des préjugés</li><li>Exemples concrets de préjugés dans la société moderne</li></ul>"
+      },
+      {
+        "title": "Comment surmonter les préjugés ?",
+        "abstract": "Stratégies pour lutter contre les préjugés et promouvoir l'inclusion.",
+        "duration": 15,
+        "pedagogical_objectives": "Développer des stratégies personnelles et communautaires pour combattre les préjugés.",
+        "content": "<p>Il est possible de surmonter les préjugés par l'éducation et le dialogue. <strong>Découvrons comment.</strong></p><ul><li>Rôle de l'éducation dans la lutte contre les préjugés</li><li>Méthodes de dialogue interculturel</li></ul>"
+      },
+      {
+        "title": "Conclusion et discussions",
+        "abstract": "Synthèse des points clés abordés et invitation à la discussion.",
+        "duration": 15,
+        "pedagogical_objectives": "Encourager la discussion sur les idées partagées lors du cours.",
+        "content": "<p>Ce cours vise à encourager une réflexion en profondeur sur la nature des préjugés. <strong>Discutons ensemble de ce que nous avons appris.</strong></p><ul><li>Points de rappel sur les thèmes abordés</li><li>Discussion ouverte avec les participants</li></ul>"
+      }
+    ]
+  }
+]
