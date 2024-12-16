@@ -5,4 +5,18 @@
 @import "primereact/resources/themes/lara-light-cyan/theme.css";
 @import 'primeicons/primeicons.css';
 
+.debutant{
+    background-color: #a7c957
+}
 
+.intermediaire{
+    background-color: #00b4d8;
+}
+
+.avancer{
+   background-color:  #ee9b00
+}
+
+.expert{
+    background-color: #ae2012;
+}

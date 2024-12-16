@@ -1,5 +1,4 @@
 "use server";
-
 import fs from "fs/promises";
 import path from "path";
 
@@ -33,5 +32,15 @@ export async function createJson(data: any) {
     } catch (error) {
         console.error("Erreur lors de la sauvegarde du fichier :", error);
         return { success: false, error };
+    }
+}
+
+export async function getCoursData() {
+    try {
+        const filePath = path.join(process.cwd(), "public", "courses.json");
+        const fileContent = await fs.readFile(filePath, 'utf-8');
+        return JSON.parse(fileContent);
+    }catch(e){
+        console.log("File not found")
     }
 }
