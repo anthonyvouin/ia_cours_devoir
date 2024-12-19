@@ -3,16 +3,16 @@
 import fs from "fs/promises";
 import path from "path";
 
-export async function createJson(data: any) {
+export async function createJson(data: any, file_path: string = "courses.json") {
     try {
-        // if (data.is_censured) {
-        //     return { 
-        //         success: false, 
-        //         error: "Le contenu du cours n'est pas approprié" 
-        //     };
-        // }
+        if (data.is_censured) {
+            return { 
+                success: false, 
+                error: "Le contenu du cours n'est pas approprié" 
+            };
+        }
 
-        const filePath = path.join(process.cwd(), "public", "courses.json");
+        const filePath = path.join(process.cwd(), "database", file_path);
         
         let courses = [];
         try {

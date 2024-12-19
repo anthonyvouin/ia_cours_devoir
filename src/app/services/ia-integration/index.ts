@@ -6,18 +6,18 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY || ""
 });
 
-export async function generateCourses(course_name: string) {
+export async function generateCourses(course_name: string, level: string) {
     try {
 
-        const prompt = `Voici la thématique du cours : ${course_name}. 
+        const prompt = `Voici la thématique du cours : ${course_name} et voici le niveau souhaité : ${level}. 
         Créez un cours détaillé avec les éléments suivants :
             - Un titre clair et descriptif
             - Le sujet principal
-            - Un niveau de difficulté (débutant, intermédiaire ou avancé)
+            - Un niveau de difficulté (débutant, intermédiaire, avancé ou expert), que je te passe plus haut
             - Une durée estimée en minutes
             - Une description générale du cours en HTML (utilisez <p>, <ul>, <li>, <strong>, <em>)
             - Un plan de cours détaillé avec les principales sections
-            - Pour chaque section, le contenu doit être en HTML avec :
+            - Pour chaque étapes, le contenu doit être détaillé et le plus pédagogue possible et extrêmement complet, il doit être en HTML avec :
                 * Des paragraphes (<p>)
                 * Des listes (<ul>, <li>)
                 * Du texte en gras (<strong>) pour les points importants
@@ -38,7 +38,7 @@ export async function generateCourses(course_name: string) {
                         level: { type: "string" },
                         duration: { type: "integer" },
                         description: { type: "string" },
-                        course_outline: {
+                        course_steps: {
                             type: "array",
                             items: {
                                 type: "object",

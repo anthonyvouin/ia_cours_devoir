@@ -1,0 +1,145 @@
+[
+  {
+    "id": 1,
+    "is_censured": false,
+    "name": "Initiation à Linux : Découverte et Pratique",
+    "subject": "Systèmes d'exploitation",
+    "level": "Débutant",
+    "duration": 180,
+    "description": "<p>Bienvenue dans ce cours d'initiation à Linux. Ce cours a été conçu pour ceux qui souhaitent découvrir le système d'exploitation Linux, ses fonctionnalités et son utilisation quotidienne.</p><ul><li><strong>Niveau :</strong> Débutant</li><li><strong>Durée :</strong> 3 heures</li><li><strong>Format :</strong> Cours en ligne avec des exercices pratiques</li></ul>",
+    "course_outline": [
+      {
+        "title": "Introduction à Linux",
+        "abstract": "Découverte de ce qu'est Linux, ses origines et ses distributions.",
+        "duration": 30,
+        "pedagogical_objectives": "Comprendre l'historique et les différences entre Linux et d'autres systèmes d'exploitation.",
+        "content": "<p>Linux est un système d'exploitation open source qui a vu le jour dans les années 1990. Dans cette section, nous allons explorer :</p><ul><li>Les origines de Linux</li><li>Les distributions populaires (Ubuntu, Fedora, Debian)</li><li>Les avantages de l'utilisation de Linux</li></ul>"
+      },
+      {
+        "title": "Installation de Linux",
+        "abstract": "Processus d'installation de Linux sur différentes machines.",
+        "duration": 45,
+        "pedagogical_objectives": "Être capable d'installer une distribution Linux sur un ordinateur.",
+        "content": "<p>Dans cette section, nous allons passer en revue les étapes de l'installation de Linux :</p><ul><li>Téléchargement de l'image ISO</li><li>Création d'une clé USB bootable</li><li>Installation sur machine virtuelle ou physique</li></ul>"
+      },
+      {
+        "title": "Commandes de base du terminal",
+        "abstract": "Introduction aux commandes de base pour naviguer et gérer le système.",
+        "duration": 45,
+        "pedagogical_objectives": "Savoir utiliser le terminal pour exécuter des commandes de base.",
+        "content": "<p>Le terminal est un outil puissant pour interagir avec Linux. Vous apprendrez à utiliser :</p><ul><li>Les commandes de navigation : <strong>ls</strong>, <strong>cd</strong>, <strong>pwd</strong></li><li>Les commandes de gestion de fichiers : <strong>cp</strong>, <strong>mv</strong>, <strong>rm</strong></li></ul><p>Exemple de commande :</p><pre><code># Lister les fichiers dans le répertoire courant\nls -l</code></pre>"
+      },
+      {
+        "title": "Gestion des utilisateurs et permissions",
+        "abstract": "Comprendre comment gérer les utilisateurs et les permissions sous Linux.",
+        "duration": 30,
+        "pedagogical_objectives": "Être capable de créer des utilisateurs et gérer les permissions.",
+        "content": "<p>La gestion des utilisateurs est essentielle pour sécuriser un système. Dans cette section, vous apprendrez à :</p><ul><li>Créer et supprimer des utilisateurs</li><li>Définir des permissions de fichiers</li></ul><p>Exemple de création d'un utilisateur :</p><pre><code># Ajouter un nouvel utilisateur\nsudo adduser nom_utilisateur</code></pre>"
+      },
+      {
+        "title": "Gestion des paquets",
+        "abstract": "Introduction à la gestion des logiciels sous Linux.",
+        "duration": 30,
+        "pedagogical_objectives": "Apprendre à installer et mettre à jour des logiciels.",
+        "content": "<p>La gestion des paquets sous Linux permet d'installer et de gérer des logiciels. Vous allez apprendre à utiliser :</p><ul><li>Les gestionnaires de paquets : <strong>Apt</strong> pour Debian/Ubuntu et <strong>Yum</strong> pour Fedora</li></ul><p>Exemple d'installation d'un paquet :</p><pre><code># Installer un logiciel avec Apt\nsudo apt install nom_du_logiciel</code></pre>"
+      },
+      {
+        "title": "Scripts Shell",
+        "abstract": "Introduction à l'écriture de scripts Shell pour automatiser des tâches.",
+        "duration": 30,
+        "pedagogical_objectives": "Être capable de créer des scripts simples pour automatiser des tâches répétitives.",
+        "content": "<p>Les scripts Shell sont utilisés pour automatiser des tâches. Dans cette section, vous apprendrez à :</p><ul><li>Créer un script de base</li><li>Utiliser les variables et les conditions</li></ul><p>Exemple de script simple :</p><pre><code>#!/bin/bash\n# Mon premier script\necho \"Bonjour, Linux!\"</code></pre>"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Maîtriser Nginx : Configuration et Optimisation",
+    "subject": "Administration des serveurs web",
+    "level": "intermediate",
+    "duration": 180,
+    "description": "<p>Ce cours est conçu pour les administrateurs système et les développeurs souhaitant approfondir leur compréhension d'<strong>Nginx</strong>, un puissant serveur web et reverse proxy. Grâce à ce cours, vous apprendrez non seulement à configurer et à gérer Nginx, mais aussi à optimiser ses performances pour des sites web à fort trafic.</p> <ul> <li><strong>Public cible :</strong> Administrateurs système, développeurs web.</li> <li><strong>Pré-requis :</strong> Connaissance de base en systèmes Linux et des concepts de serveur web.</li> </ul>",
+    "course_steps": [
+      {
+        "title": "Introduction à Nginx",
+        "abstract": "Découvrez l'architecture et les principales fonctionnalités de Nginx.",
+        "duration": 30,
+        "pedagogical_objectives": "Comprendre ce qu'est Nginx, son rôle et ses avantages par rapport à d'autres serveurs web.",
+        "content": "<p>Nginx est un serveur web de haute performance qui est largement utilisé pour gérer des applications web modernes et des contenus à fort trafic. Dans cette section, nous explorerons :</p> <ul> <li>Les raisons de la popularité d'Nginx</li> <li>Différences entre Nginx et Apache</li> <li>Cas d'utilisation typiques de Nginx</li> </ul> <p><strong>Exemple :</strong> Voici un simple exemple d’un fichier de configuration de base pour un serveur Nginx :</p> <pre><code>server {\n    listen 80;\n    server_name example.com;\n\n    location / {\n        root /var/www/html;\n        index index.html index.htm;\n    }\n}</code></pre>"
+      },
+      {
+        "title": "Installation et Configuration de Nginx",
+        "abstract": "Apprenez à installer et configurer Nginx sur un serveur Linux.",
+        "duration": 45,
+        "pedagogical_objectives": "Savoir installer Nginx sur des distributions Linux et configurer les fichiers nécessaires.",
+        "content": "<p>Dans cette section, vous allez apprendre à :</p> <ul> <li>Installer Nginx sur <strong>Ubuntu</strong> et <strong>CentOS</strong></li> <li>Configurer vos premiers fichiers de configuration de serveur</li> <li>Utiliser les commandes de service pour gérer Nginx</li> </ul> <p><strong>Installation sur Ubuntu :</strong></p> <pre><code>sudo apt update\nsudo apt install nginx</code></pre> <p><strong>Installation sur CentOS :</strong></p> <pre><code>sudo yum install epel-release\nsudo yum install nginx</code></pre> <p>Une fois installé, vous pouvez démarrer Nginx avec :</p> <pre><code>sudo systemctl start nginx</code></pre>"
+      },
+      {
+        "title": "Configuration des Serveurs Virtuels",
+        "abstract": "Mettez en place des serveurs virtuels pour gérer plusieurs sites web.",
+        "duration": 30,
+        "pedagogical_objectives": "Savoir configurer des serveurs virtuels dans Nginx pour héberger plusieurs domaines.",
+        "content": "<p>Les serveurs virtuels vous permettent d'héberger plusieurs sites web sur une seule instance Nginx. Voici comment configurer :</p> <ul> <li>Structure d'un bloc <strong>server</strong></li> <li>Utilisation de <strong>server_name</strong> pour définir les domaines</li> <li>Gestion des fichiers de log</li> </ul> <p><strong>Exemple de configuration d'un serveur virtuel :</strong></p> <pre><code>server {\n    listen 80;\n    server_name site1.com www.site1.com;\n    root /var/www/site1;\n}\n\nserver {\n    listen 80;\n    server_name site2.com www.site2.com;\n    root /var/www/site2;\n}</code></pre>"
+      },
+      {
+        "title": "Optimisation des Performances",
+        "abstract": "Techniques pour améliorer les performances de votre serveur Nginx.",
+        "duration": 30,
+        "pedagogical_objectives": "Comprendre comment configurer Nginx pour maximiser ses performances.",
+        "content": "<p>Pour améliorer les performances de Nginx, il est essentiel d’utiliser certaines configurations. Cette section abordera :</p> <ul> <li>La mise en cache de contenu statique</li> <li>La compression des fichiers avec <strong>gzip</strong></li> <li>Le réglage des paramètres de buffer</li> </ul> <p><strong>Exemple de configuration de compression GZIP :</strong></p> <pre><code>gzip on;\n    gzip_types text/plain application/javascript;\n    gzip_proxied any;\n    gzip_min_length 256;\n</code></pre>"
+      },
+      {
+        "title": "Sécurisation de Nginx",
+        "abstract": "Mettre en œuvre des meilleures pratiques de sécurité dans Nginx.",
+        "duration": 30,
+        "pedagogical_objectives": "Connaître les pratiques pour sécuriser votre serveur Nginx contre les attaques.",
+        "content": "<p>La sécurité est un aspect crucial de la gestion d'un serveur web. Dans cette section, nous discuterons :</p> <ul> <li>Des certificats SSL/TLS pour le HTTPS</li> <li>De la sécurisation du fichier de configuration</li> <li>Des stratégies pour prévenir les attaques DDoS</li> </ul> <p><strong>Exemple d'activation de HTTPS avec certificat Let's Encrypt :</strong></p> <pre><code>sudo apt install certbot python3-certbot-nginx\nsudo certbot --nginx -d example.com -d www.example.com</code></pre>"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Exploration de la Nature Sauvage",
+    "subject": "Biologie et Écologie",
+    "level": "Avancé",
+    "duration": 180,
+    "description": "<p>Ce cours avancé sur <strong>la nature sauvage</strong> vous plonge dans l'exploration des écosystèmes, des comportements d'animaux et des interactions écologiques. Vous apprendrez à comprendre les dynamiques naturelles et à respecter la biodiversité.</p><ul><li><strong>Durée :</strong> 3 heures</li><li><strong>Niveau requis :</strong> Connaissances de base en biologie</li><li><strong>Format :</strong> Cours en ligne avec vidéos et quiz interactifs</li></ul>",
+    "course_steps": [
+      {
+        "title": "Introduction à la Nature Sauvage",
+        "abstract": "Ce module présente les différents types d'écosystèmes et leur importance pour la planète.",
+        "duration": 30,
+        "pedagogical_objectives": "Comprendre la diversité des écosystèmes naturels et leur rôle.",
+        "content": "<p>Dans ce module, nous explorerons les principaux types d'écosystèmes : <strong>forêts, océans, prairies, déserts</strong>. Chacun joue un rôle crucial dans la régulation du climat et le maintien de la vie sur Terre.</p><ul><li><strong>Forêts tropicales :</strong> Richesse en biodiversité, rôle dans le cycle du carbone.</li><li><strong>Océans :</strong> Habitat pour une multitude d'espèces, régulation de la température terrestre.</li><li><strong>Prairies :</strong> Zones de pâturage, importance pour les cycles des nutriments.</li><li><strong>Déserts :</strong> Adaptations des espèces à des conditions extrêmes.</li></ul>"
+      },
+      {
+        "title": "Biodiversité et Écologie",
+        "abstract": "Ce module aborde le concept de biodiversité et son importance dans les écosystèmes.",
+        "duration": 45,
+        "pedagogical_objectives": "Reconnaître les différents niveaux de biodiversité et leur impact.",
+        "content": "<p>La <strong>biodiversité</strong> se divise en trois niveaux : <strong>génétique, spécifique, et écosystémique</strong>. Chaque niveau contribue à la résilience des écosystèmes.</p><ul><li><strong>Biodiversité génétique :</strong> Variabilité au sein des espèces, essentielle pour l'adaptation.</li><li><strong>Biodiversité spécifique :</strong> Nombre d'espèces dans un habitat donné et leur interactions.</li><li><strong>Biodiversité écosystémique :</strong> Différents écosystèmes et leur diversité fonctionnelle.</li></ul><p>Un exemple : les <strong>pollinisateurs</strong> comme les abeilles, qui jouent un rôle clé dans la reproduction des fleurs.</p>"
+      },
+      {
+        "title": "Comportements Animaux dans la Nature",
+        "abstract": "Ce module explore les différents comportements des animaux en milieu naturel.",
+        "duration": 45,
+        "pedagogical_objectives": "Comprendre les instincts et les apprentissages des animaux.",
+        "content": "<p>Les comportements animaux peuvent être classés en <strong>instinctifs</strong> et <strong>appris</strong>. Les instincts sont des réponses automatiques tandis que les comportements appris résultent d'expériences.</p><ul><li><strong>Exemples de comportements instinctifs :</strong></li><ul><li>Migration des oiseaux pour l'alimentation.</li><li>Nidification chez différentes espèces.</li></ul><li><strong>Exemples de comportements appris :</strong></li><ul><li>Utilisation d'outils par certains singes.</li><li>Comportements de chasse développés par les loups.</li></ul></p>"
+      },
+      {
+        "title": "Interactions Écologiques et Équilibres",
+        "abstract": "Ce module discute des interactions entre espèces et de leur impact sur les écosystèmes.",
+        "duration": 30,
+        "pedagogical_objectives": "Identifier les types d'interactions écologiques et leur importance.",
+        "content": "<p>Les interactions écologiques se classifient principalement en <strong>prédation, compétition, et symbiose</strong>.</p><ul><li><strong>Prédation :</strong> Relation entre prédateur et proie, maintient l'équilibre des populations.</li><li><strong>Compétition :</strong> Lutte pour des ressources limitées (nourriture, habitat).</li><li><strong>Symbiose :</strong> Relations bénéfiques pour les deux parties (ex. pollinisation).</li></ul><p>L'exemple idéal est la relation entre <strong>les abeilles et les fleurs</strong>, où les abeilles obtiennent de la nourriture et aident en retour à la pollinisation.</p>"
+      },
+      {
+        "title": "Conservation de la Nature Sauvage",
+        "abstract": "Ce module traite de l'importance de la conservation des écosystèmes et des espèces menacées.",
+        "duration": 30,
+        "pedagogical_objectives": "Connaître les défis de la conservation et les efforts requis.",
+        "content": "<p>La <strong>conservation</strong> est essentielle pour prévenir l'extinction des espèces et protéger les habitats naturels.</p><ul><li><strong>Menaces principales :</strong></li><ul><li>Changement climatique.</li><li>Pollution.</li><li>Destruction des habitats.</li></ul><li><strong>Efforts de conservation :</strong></li><ul><li>Création de réserves naturelles.</li><li>Programmes d'éducation et de sensibilisation.</li><li>Législations pour protéger les espèces menacées.</li></ul></p>"
+      }
+    ]
+  }
+]
