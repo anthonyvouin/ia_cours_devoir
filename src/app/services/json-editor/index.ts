@@ -35,12 +35,16 @@ export async function createJson(data: any, file_path: string = "courses.json") 
     }
 }
 
-export async function getCoursData() {
+export async function getCoursData(slug?: string) {
     try {
-        const filePath = path.join(process.cwd(), "public", "courses.json");
-        const fileContent = await fs.readFile(filePath, 'utf-8');
-        return JSON.parse(fileContent);
-    }catch(e){
+        const filePath = path.join(process.cwd(), "database", "courses.json");
+        const rawContent = await fs.readFile(filePath, 'utf-8');
+        let courses = JSON.parse(rawContent);
+        if (slug !== undefined) {
+            courses = courses.filter((course) => course.slug === slug)[0];
+        }
+        return courses;
+    } catch(e) {
         console.log("File not found")
     }
 }
