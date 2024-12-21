@@ -39,3 +39,15 @@ export interface CourseList {
     level: string,
     slug: string
 }
+
+export interface CoursRevision {
+    id : number,
+    slug : string,
+    sections : [{
+
+        title : string,
+        summary : string
+        key_points : string[]
+    }
+    ]
+}

@@ -2,6 +2,7 @@
 
 import OpenAI from "openai";
 import {Course, CourseList} from "@/interface/course.dto";
+import {createJson} from "@/app/services/json-editor";
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY || ""
@@ -270,7 +271,137 @@ export async function generateQCM(numberQuestion: number, course: Course): Promi
         throw error;
     }
 }
-export async function generateFileRevision(course?: Course) {
 
+
+
+export async function generateFileRevision(course: Course) {
+    try {
+        const prompt = `Voici la thématique du cours : ${course.name}.
+        Créez une fiche de révision textuelle, **très détaillée**, **complète** et **structurée**, permettant à un étudiant de réviser de manière approfondie et efficace tout le contenu du cours. La fiche doit couvrir chaque aspect du cours de manière exhaustive, avec une présentation claire et une progression logique.
+
+      1. **Structure générale (obligatoire)** :
+    - Un **résumé détaillé** et complet de chaque section du cours, avec une **progression logique**.
+    - Des **explications approfondies et pédagogiques** des concepts clés, tirées directement du cours.
+    - Une **liste des points essentiels** à retenir pour chaque section, présentée sous forme de **listes à puces** (ul/li) pour une meilleure lisibilité.
+    - Le **slug** doit être égal à ${course.slug}.
+    - **Durée estimée de révision** par section (en minutes) pour aider à la gestion du temps de révision.
+    - **Niveau de difficulté** de chaque section, avec des précisions sur les concepts plus complexes à maîtriser.
+
+     2. **Pour CHAQUE section du cours** :
+    A. Fournir un **titre clair, descriptif et engageant** pour chaque section.
+    B. Inclure un **résumé détaillé** de chaque section, avec des explications pédagogiques qui abordent tous les aspects importants du sujet.
+    C. Ajouter une sous-section **"À retenir"** avec les points clés à retenir sous forme de **listes à puces** (ul/li), mais en incluant des explications supplémentaires sur l'importance de chaque point.
+    D. **Exemples pratiques détaillés** ou **études de cas** mentionnées dans le cours, résumées en quelques phrases, en expliquant comment appliquer les concepts théoriques dans des situations réelles.
+    E. **Schémas et illustrations** en HTML, décrits et intégrés, pour rendre les concepts plus concrets et visuels.
+    F. **Exercices pratiques ou cas d'étude supplémentaires** pour renforcer la compréhension du contenu. Par exemple, des problèmes pratiques à résoudre ou des questions pour tester la compréhension.
+    G. **Conseils pratiques** pour mieux comprendre les concepts et les appliquer dans des situations réelles.
+
+     3. **Ressources** :
+    - Fournir des liens directs vers des **ressources complémentaires** utiles :
+      * Documentation officielle
+      * Tutoriels vidéo reconnus
+      * Projets GitHub pertinents
+      * Outils et logiciels recommandés
+    Format : <a href="lien" target="_blank" rel="noopener noreferrer">texte</a>.
+
+        4. **Format et style** :
+            - Utiliser une hiérarchie claire avec des titres (h1, h2, h3) pour structurer la fiche.
+            - Présenter les points importants en utilisant des listes à puces (<ul><li>).
+            - Les sections doivent être bien séparées et lisibles.
+            - Éviter les détails inutiles, mais conserver les explications nécessaires à la compréhension.
+
+        Exemple de structure pour une section :
+        <h2>Section : [Titre de la section]</h2>
+        <p>[Résumé détaillé de la section]</p>
+        <h3>À retenir</h3>
+        <ul>
+            <li>[Point clé 1]</li>
+            <li>[Point clé 2]</li>
+            <li>[Point clé 3]</li>
+        </ul>
+        <h3>Exemple pratique</h3>
+        <p>[Exemple détaillé]</p>
+        <h3>Ressources supplémentaires</h3>
+        <ul>
+            <li><a href="lien" target="_blank" rel="noopener noreferrer">[Nom de la ressource]</a></li>
+        </ul>
+
+        Assurez-vous que :
+        - Toutes les sections du cours sont couvertes.
+        - La progression logique et pédagogique est respectée.
+        - Le format HTML est bien structuré et lisible.
+        - Des exemples concrets et des cas pratiques sont inclus dans chaque section pour une meilleure compréhension.`;
+
+        const response_format = {
+            type: "json_schema" as const,
+            json_schema: {
+                name: "revision_file",
+                schema: {
+                    type: "object",
+                    properties: {
+                        slug: { type: "string" },
+                        sections: {
+                            type: "array",
+                            items: {
+                                type: "object",
+                                properties: {
+                                    title: { type: "string" },
+                                    summary: { type: "string" },
+                                    key_points: {
+                                        type: "array",
+                                        items: { type: "string" }
+                                    },
+                                    examples: { type: "string" },
+                                    resources: {
+                                        type: "array",
+                                        items: { type: "string" }
+                                    }
+                                },
+                                required: ["title", "summary", "key_points"],
+                                additionalProperties: false
+                            }
+                        }
+                    },
+                    required: [ "slug", "sections"]
+                }
+            }
+        };
+
+        const response = await openai.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: [
+                {
+                    role: "system",
+                    content: `Vous êtes un expert en pédagogie et en création de contenus pédagogiques. Vous créez des fiches de révision basées sur les cours générés, adaptées au niveau de difficulté demandé.`
+                },
+                {
+                    role: "user",
+                    content: prompt
+                }
+            ],
+            response_format
+        });
+
+        const responseContent = response.choices[0].message.content;
+
+        if (!responseContent) {
+            throw new Error("La réponse de l'API est vide");
+        }
+
+        const parsedResponse = JSON.parse(responseContent);
+
+        const fileRevisionData = parsedResponse;
+
+        const createJsonResult = await createJson(fileRevisionData, "fileRevision.json");
+
+        console.log(createJsonResult);
+
+        return createJsonResult;
+
+    } catch (error) {
+        console.error("Erreur dans la génération de la fiche de révision :", error);
+        throw error;
+    }
 }
 
+ 

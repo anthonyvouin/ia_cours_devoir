@@ -42,6 +42,15 @@ export default function CoursList() {
             await createJson(qcm, 'qcm.json');
         }
     }
+    
+
+    const handleGenerateFileRevision = async (cours: CourseList): Promise<void> => {
+        const findCours: Course = await getCourseDataBySlug(cours.slug)
+        console.log(cours)
+        if (findCours !== undefined) {
+             await generateFileRevision(findCours)
+        }
+    }
 
     const getFlammeColor = (level: string) => {
         switch (level) {
@@ -80,7 +89,7 @@ export default function CoursList() {
                             </Link>
                             <Button label="Generer une fiche de révision"
                                     className="mr-2.5 bg-grey text-white p-2.5"
-                                    onClick={() => generateFileRevision()}></Button>
+                                    onClick={() => handleGenerateFileRevision(cours)}></Button>
                             <Button label="Generer un QCM"
                                     className="mr-2.5 bg-blue text-white p-2.5"
                                     onClick={() => handleGenerateQCM(cours)}></Button>
