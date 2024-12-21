@@ -1,12 +1,44 @@
 "use server";
 
 import OpenAI from "openai";
-import {Course, CourseList} from "@/interface/course.dto";
+import {Course} from "@/interface/course.dto";
 import {createJson} from "@/app/services/json-editor";
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY || ""
 });
+
+
+const questions = {
+    type: "array",
+    items: {
+        type: "object",
+        properties: {
+            question: {
+                type: 'object',
+                properties: {
+                    name: {type: 'string'},
+                    id: {type: 'number'},
+                },
+                required: ["name", "id"]
+            },
+            responses: {
+                type: "array",
+                items: {type: "string"},
+                minItems: 4,
+                maxItems: 4
+            },
+            trueResponses: {
+                type: "array",
+                items: {type: "string"},
+                minItems: 1
+            },
+            isUniqueResponse: {type: "boolean"}
+        },
+        required: ["question", "responses", "trueResponses", "isUniqueResponse"]
+    }
+}
+
 
 export async function generateCourses(course_name: string, level: string) {
     try {
@@ -175,9 +207,7 @@ export async function generateCourses(course_name: string, level: string) {
             throw new Error("La réponse de l'API est vide");
         }
 
-        const parsedResponse = JSON.parse(responseContent);
-
-        return parsedResponse;
+        return await JSON.parse(responseContent);
 
     } catch (error) {
         console.error('Erreur lors de l\'analyse de l\'image :', error);
@@ -185,8 +215,10 @@ export async function generateCourses(course_name: string, level: string) {
     }
 }
 
+
 export async function generateQCM(numberQuestion: number, course: Course): Promise<any> {
     try {
+        const idQuestion: number = 0
         const prompt: string = `Voici la thématique du cours : ${course.name} et voici le niveau souhaité : ${course.level}.
         Créez un QCM de ${numberQuestion} questions basé sur le cours suivant : ${course.course_steps_content.join(',')}. 
         Chaque question peut avoir 4 propositions.
@@ -198,8 +230,9 @@ export async function generateQCM(numberQuestion: number, course: Course): Promi
             - isUniqueResponse de type boolean
         
         2. Pour CHAQUE question :
-            A. un tableau de 4 réponses (responses)
-            B. un tableau de bonnes réponses (trueResponses).
+            A. une question en rapport avec le cours avec un champs name et un id que tu incrémente depuis ${idQuestion}
+            B. un tableau(responses) de 4 réponses
+            C. un tableau de bonnes réponses (trueResponses).
             Répondez uniquement avec un objet, sans texte supplémentaire.
             `;
 
@@ -211,28 +244,7 @@ export async function generateQCM(numberQuestion: number, course: Course): Promi
                     type: "object",
                     properties: {
                         slug: {type: 'string'},
-                        questions: {
-                            type: "array",
-                            items: {
-                                type: "object",
-                                properties: {
-                                    question: {type: "string"},
-                                    responses: {
-                                        type: "array",
-                                        items: {type: "string"},
-                                        minItems: 4,
-                                        maxItems: 4
-                                    },
-                                    trueResponses: {
-                                        type: "array",
-                                        items: {type: "string"},
-                                        minItems: 1
-                                    },
-                                    isUniqueResponse: {type: "boolean"}
-                                },
-                                required: ["question", "responses", "trueResponses", "isUniqueResponse"]
-                            }
-                        },
+                        questions: questions
                     },
                     required: ["questions", 'slug']
                 }
@@ -240,31 +252,7 @@ export async function generateQCM(numberQuestion: number, course: Course): Promi
         }
 
 
-        const response = await openai.chat.completions.create({
-            model: "gpt-4o-mini",
-            messages: [
-                {
-                    role: "system",
-                    content: `Vous êtes un expert en pédagogie et en création de cours, spécialisé dans la création de contenus de type OpenClassrooms. Vous créez des QCM basés sur les cours.`
-                },
-                {
-                    role: "user",
-                    content: prompt
-                }
-            ],
-            response_format
-        });
-
-        const responseContent = response.choices[0].message.content;
-
-        if (!responseContent) {
-            throw new Error("La réponse de l'API est vide");
-        }
-
-        const parsedResponse = JSON.parse(responseContent);
-
-        console.log(parsedResponse);
-        return parsedResponse;
+        return await sendToChatGpt(response_format, prompt)
 
     } catch (error) {
         console.error("Erreur dans la génération du QCM :", error);
@@ -272,11 +260,80 @@ export async function generateQCM(numberQuestion: number, course: Course): Promi
     }
 }
 
+export async function generateNewQuestions(numberQuestion: number, course: Course, lastIdQuestion: number): Promise<any> {
+    try {
+        const prompt: string = `Voici la thématique du cours : ${course.name} et voici le niveau souhaité : ${course.level}.
+        Créez UNIQUEMENT ${numberQuestion} question(s) basé sur le cours suivant : ${course.course_steps_content.join(',')}. 
+        Chaque question peut avoir 4 propositions.
+        Il doit y avoir des questions à réponse unique et d'autres à réponses multiples :
+        
+        1. Structure générale (obligatoire) :
+            - question de type string
+            - isUniqueResponse de type boolean
+        
+        2. Pour CHAQUE question :
+            A. une question en rapport avec le cours avec un champs name et un id que tu incrémente depuis ${lastIdQuestion + 1}
+            B. un tableau(responses) de 4 réponses
+            C. un tableau de bonnes réponses (trueResponses).
+            Répondez uniquement avec un objet, sans texte supplémentaire.
+            `;
+
+        const response_format = {
+            type: "json_schema" as const,
+            json_schema: {
+                name: "qcm",
+                schema: {
+                    type: "object",
+                    properties: {
+                        questions: questions
+                    },
+                    required: ["questions"]
+                }
+            }
+        }
+
+
+        return await sendToChatGpt(response_format, prompt)
+
+    } catch (error) {
+        console.error("Erreur dans la génération du QCM :", error);
+        throw error;
+    }
+}
+
+const sendToChatGpt = async (response_format, prompt: string) => {
+    const response = await openai.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: [
+            {
+                role: "system",
+                content: `Vous êtes un expert en pédagogie et en création de cours, spécialisé dans la création de contenus de type OpenClassrooms. Vous créez des QCM basés sur les cours.`
+            },
+            {
+                role: "user",
+                content: prompt
+            }
+        ],
+        response_format
+    });
+
+    const responseContent = response.choices[0].message.content;
+
+    if (!responseContent) {
+        throw new Error("La réponse de l'API est vide");
+    }
+
+    const parsedResponse = await JSON.parse(responseContent);
+
+    console.log(parsedResponse);
+    return parsedResponse;
+}
+
 
 
 export async function generateFileRevision(course: Course) {
     try {
-       
+
         const prompt = `Voici la thématique du cours : ${course.name}.
         Créez une fiche de révision textuelle **très détaillée** et **structurée** pour permettre à un étudiant de réviser efficacement. 
         
@@ -301,7 +358,7 @@ export async function generateFileRevision(course: Course) {
         3. **Exigences supplémentaires** :
             - Le slug du cours doit être égal à : ${course.slug}.
             - La fiche doit être entièrement lisible et structurée de manière à faciliter la révision.`;
-               
+
 
 
             const response_format = {
@@ -333,7 +390,7 @@ export async function generateFileRevision(course: Course) {
                     }
                 }
             };
-            
+
 
 
         const response = await openai.chat.completions.create({
@@ -357,15 +414,9 @@ export async function generateFileRevision(course: Course) {
             throw new Error("La réponse de l'API est vide");
         }
 
-        const parsedResponse = JSON.parse(responseContent);
+        const fileRevisionData = JSON.parse(responseContent);
 
-        const fileRevisionData = parsedResponse;
-
-        const createJsonResult = await createJson(fileRevisionData, "fileRevision.json");
-
-        console.log(createJsonResult);
-
-        return createJsonResult;
+        return await createJson(fileRevisionData, "fileRevision.json");
 
     } catch (error) {
         console.error("Erreur dans la génération de la fiche de révision :", error);

@@ -1,26 +1,33 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getRevisionBySlug } from "@/app/services/json-editor";
+import { getRevisionBySlug, getCourseDataBySlug } from "@/app/services/json-editor";
 import { CoursRevision } from "@/interface/course.dto";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import {Button} from "primereact/button";
+import Swal from "sweetalert2";
+import {generateFileRevision} from "@/app/services/ia-integration";
+
 
 interface RevisionSheetProps {
-  slug: string;
+    slug: string;
 }
 
 export default function RevisionSheet({ slug }: RevisionSheetProps) {
   const [courseRevision, setCourseRevision] = useState<CoursRevision | null>(null);
 
-  useEffect(() => {
-    const fetchCourseRevision = async () => {
-      const data = await getRevisionBySlug(slug);
-      setCourseRevision(data);
-    };
+    useEffect((): void => {
+        const fetchCourseRevision = async (): Promise<void> => {
+            const data = await getRevisionBySlug(slug);
+            if(data){
+                setCourseRevision(data);
+            }
 
-    fetchCourseRevision();
-  }, [slug]);
+        };
+
+        fetchCourseRevision();
+    }, [slug]);
 
   const generatePDF = () => {
     if (!courseRevision) return;
@@ -30,11 +37,11 @@ export default function RevisionSheet({ slug }: RevisionSheetProps) {
     doc.setFontSize(13);
     doc.text(`Fiche de Révision : ${courseRevision.slug}`, 10, 10);
 
-    let yOffset = 20; 
+    let yOffset = 20;
 
     courseRevision.sections.forEach((section, index) => {
       doc.setFontSize(11);
-      doc.setTextColor(0, 0, 255); 
+      doc.setTextColor(0, 0, 255);
       doc.text(`Section ${index + 1}: ${section.title}`, 10, yOffset);
       yOffset += 10;
 
@@ -69,18 +76,48 @@ export default function RevisionSheet({ slug }: RevisionSheetProps) {
     doc.save(`${courseRevision.slug}_revision.pdf`);
   };
 
-  if (!courseRevision) {
-    return <div>Chargement...</div>;
-  }
 
-  return (
-    <section className="flex justify-center mt-6 mb-14">
-      <div className="w-5/6 text-black">
-        <div className="border-4 border-slate-900 w-fit p-6 mb-14">
-          <h1 className="mb-4 text-2xl font-bold">
-            Fiche de Révision : {courseRevision.slug}
-          </h1>
-        </div>
+    const handleGenerateFileRevision = async (): Promise<void> => {
+        Swal.fire({
+            title: 'Génération de la fiche de révision en cours...',
+            html: 'Cela peut prendre quelques minutes',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+        const findCours: Course = await getCourseDataBySlug(slug)
+        if (findCours !== undefined) {
+            const newCourseRevision: { success: boolean, generatedData?: [], error?: string | unknown } = await generateFileRevision(findCours)
+            if (newCourseRevision.generatedData) {
+                // @ts-ignore
+                setCourseRevision(newCourseRevision.generatedData)
+            }
+            await Swal.fire({
+                icon: 'success',
+                title: 'Génération terminée !',
+                text: '',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        }
+    }
+
+    if (!courseRevision) {
+        return (<Button label="Generer une fiche de révision"
+                        className="mr-2.5 bg-grey text-white p-2.5"
+                        onClick={() => handleGenerateFileRevision()}></Button>)
+
+    }
+
+    return (
+        <section className="flex justify-center mt-6 mb-14">
+            <div className="w-5/6 text-black">
+                <div className="border-4 border-slate-900 w-fit p-6 mb-14">
+                    <h1 className="mb-4 text-2xl font-bold">
+                        Fiche de Révision : {courseRevision.slug}
+                    </h1>
+                </div>
 
         <div className="bg-white p-8 rounded-lg shadow-lg mb-14">
           <h2 className="text-3xl font-bold mb-2">Sections</h2>

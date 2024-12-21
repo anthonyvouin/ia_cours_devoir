@@ -9,6 +9,7 @@ import {Course} from "@/interface/course.dto";
 import DetailCourse from "@/app/component/detailCourse/DetailCourse";
 import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import RevisionSheet from "@/app/component/ revision-sheet/revisionSheet";
+import Qcm from "@/app/component/qcm/qcm";
 
 
 export default function OneCoursePage() {
@@ -79,7 +80,7 @@ export default function OneCoursePage() {
             </TabPanel>
 
             <TabPanel header="QCM">
-
+                <Qcm slug={course.slug}></Qcm>
             </TabPanel>
 
             <TabPanel header="Fiche de révision">
