@@ -1,7 +1,7 @@
 "use server";
 import fs from "fs/promises";
 import path from "path";
-import {Course, CourseList} from "@/interface/course.dto";
+import {Course, CourseList, CoursRevision} from "@/interface/course.dto";
 import {QcmDto, QcmQuestionDto} from "@/interface/qcm.dto";
 
 export async function createJson(data: any, file_path: string = "courses.json") {
@@ -79,4 +79,11 @@ export async function addQuestions(slug: string, data: QcmQuestionDto[]) {
     qcmList[qcmIndex].questions.push(...data);
     await fs.writeFile(filePath, JSON.stringify(qcmList, null, 2));
     return qcmList[qcmIndex];
+}
+
+export async function getRevisionBySlug(slug: string) {
+    const filePath: string = path.join(process.cwd(), "database", "fileRevision.json");
+    const rawContent: string = await fs.readFile(filePath, 'utf-8');
+    const courses: CoursRevision[] = JSON.parse(rawContent);
+    return courses.filter((course: CoursRevision): boolean => course.slug === slug)[0];
 }
