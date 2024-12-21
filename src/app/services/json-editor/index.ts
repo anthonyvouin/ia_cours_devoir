@@ -36,16 +36,26 @@ export async function createJson(data: any, file_path: string = "courses.json") 
     }
 }
 
-export async function getCourseData(slug?: string): Promise<CourseList[] | CourseList | undefined> {
+export async function getCourseData(): Promise<CourseList[] | undefined> {
     try {
         const filePath: string = path.join(process.cwd(), "database", "courses.json");
         const rawContent: string = await fs.readFile(filePath, 'utf-8');
-        let courses: CourseList[] | CourseList = JSON.parse(rawContent);
-        if (slug !== undefined && Array.isArray(courses)) {
-            courses = courses.filter((course: CourseList): boolean => course.slug === slug)[0];
-        }
-        return courses;
+        return JSON.parse(rawContent);
     } catch (e) {
         console.log("File not found")
     }
+}
+
+export async function getCourseDataBySlug(slug: string) {
+    const filePath: string = path.join(process.cwd(), "database", "courses.json");
+    const rawContent: string = await fs.readFile(filePath, 'utf-8');
+    const courses: Course[] = JSON.parse(rawContent);
+    return courses.filter((course: Course): boolean => course.slug === slug)[0];
+}
+
+export async function getQCMBySlug(slug: string) {
+    const filePath: string = path.join(process.cwd(), "database", "qcm.json");
+    const rawContent: string = await fs.readFile(filePath, 'utf-8');
+    const courses: Course[] = JSON.parse(rawContent);
+    return courses.filter((course: Course): boolean => course.slug === slug)[0];
 }

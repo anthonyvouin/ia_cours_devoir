@@ -184,13 +184,15 @@ export async function generateCourses(course_name: string, level: string) {
     }
 }
 
-export async function generateQCM(numberQuestion: number, level: string, course: string) {
+export async function generateQCM(numberQuestion: number, course: Course): Promise<any> {
     try {
-        const prompt = `Voici la thématique du cours : ${course} et voici le niveau souhaité : ${level}.
-        Créez un QCM de ${numberQuestion} questions. Chaque question peut avoir 4 propositions.
+        const prompt: string = `Voici la thématique du cours : ${course.name} et voici le niveau souhaité : ${course.level}.
+        Créez un QCM de ${numberQuestion} questions basé sur le cours suivant : ${course.course_steps_content.join(',')}. 
+        Chaque question peut avoir 4 propositions.
         Il doit y avoir des questions à réponse unique et d'autres à réponses multiples :
         
         1. Structure générale (obligatoire) :
+            - le slug doit etre égale à ${course.slug}
             - question de type string
             - isUniqueResponse de type boolean
         
@@ -203,10 +205,11 @@ export async function generateQCM(numberQuestion: number, level: string, course:
         const response_format = {
             type: "json_schema" as const,
             json_schema: {
-                name: "course",
+                name: "qcm",
                 schema: {
                     type: "object",
                     properties: {
+                        slug: {type: 'string'},
                         questions: {
                             type: "array",
                             items: {
@@ -230,7 +233,7 @@ export async function generateQCM(numberQuestion: number, level: string, course:
                             }
                         },
                     },
-                    required: ["questions"]
+                    required: ["questions", 'slug']
                 }
             }
         }
@@ -267,3 +270,4 @@ export async function generateQCM(numberQuestion: number, level: string, course:
         throw error;
     }
 }
+

@@ -1,12 +1,12 @@
 "use client"
 
-import {getCourseData} from "@/app/services/json-editor";
+import {createJson, getCourseData, getCourseDataBySlug} from "@/app/services/json-editor";
 import {Button} from "primereact/button";
 import {Card} from "primereact/card";
 import {Chip} from "primereact/chip";
 import Link from "next/link";
 import {useEffect, useState} from "react";
-import {CourseList} from "@/interface/course.dto";
+import {Course, CourseList} from "@/interface/course.dto";
 import {generateQCM} from "@/app/services/ia-integration";
 
 export default function CoursList() {
@@ -14,7 +14,7 @@ export default function CoursList() {
     const [coursList, setCoursList] = useState<CourseList[]>([]);
     useEffect(() => {
         const fetchData = async () => {
-            const response = await getCourseData()
+            const response: Course | CourseList[] | undefined = await getCourseData() as CourseList[]
             setCoursList(response)
         }
         fetchData();
@@ -30,6 +30,16 @@ export default function CoursList() {
                 return 'avancer'
             case 'expert':
                 return 'expert'
+        }
+    }
+
+
+    const handleGenerateQCM = async (cours: CourseList):Promise<void> => {
+        const findCours:Course = await getCourseDataBySlug(cours.slug)
+        console.log(cours)
+        if (findCours !== undefined) {
+            const qcm = await generateQCM(5, findCours)
+            await createJson(qcm, 'qcm.json');
         }
     }
 
@@ -73,14 +83,13 @@ export default function CoursList() {
                                     className="mr-2.5 bg-grey text-white p-2.5"></Button>
                             <Button label="Generer un QCM"
                                     className="mr-2.5 bg-blue text-white p-2.5"
-                            onClick={()=> generateQCM(5, cours.level, cours.name)}></Button>
+                                    onClick={() => handleGenerateQCM(cours)}></Button>
                         </div>
 
                     </Card>
 
                 ))}
             </div>
-
         </div>
 
     );

@@ -2,7 +2,7 @@
 
 import {useEffect, useState} from "react";
 import {useParams, useRouter} from "next/navigation";
-import {getCourseData} from "@/app/services/json-editor";
+import {getCourseData, getCourseDataBySlug} from "@/app/services/json-editor";
 import {ProgressSpinner} from 'primereact/progressspinner';
 import {TabPanel, TabView} from "primereact/tabview";
 import {Course} from "@/interface/course.dto";
@@ -22,7 +22,7 @@ export default function OneCoursePage() {
             try {
                 setLoading(true);
                 setError(null);
-                const response = await getCourseData(params.slug);
+                const response = await getCourseDataBySlug(params.slug);
 
                 if (response.is_censured) {
                     setError("Ce contenu n'est pas disponible car il contient des éléments inappropriés.");
@@ -76,9 +76,11 @@ export default function OneCoursePage() {
             <TabPanel header="Cours">
                 <DetailCourse course={course}></DetailCourse>
             </TabPanel>
+
             <TabPanel header="QCM">
 
             </TabPanel>
+
             <TabPanel header="Fiche de révision">
 
             </TabPanel>

@@ -20,8 +20,10 @@ export interface CourseOutline {
 
 export interface Course {
     name: string;
+    id: number;
     level: string;
     duration: number;
+    slug: string;
     description: string;
     course_outline: CourseOutline[];
     course_steps_content: CourseStep[];
