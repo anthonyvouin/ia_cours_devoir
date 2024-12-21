@@ -6,24 +6,65 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY || ""
 });
 
-export async function generateCourses(course_name: string) {
+export async function generateCourses(course_name: string, level: string) {
     try {
+        const prompt = `Voici la thématique du cours : ${course_name} et voici le niveau souhaité : ${level}. 
+        Créez un cours extrêmement détaillé et approfondi, similaire aux cours OpenClassrooms, avec :
 
-        const prompt = `Voici la thématique du cours : ${course_name}. 
-        Créez un cours détaillé avec les éléments suivants :
-            - Un titre clair et descriptif
-            - Le sujet principal
-            - Un niveau de difficulté (débutant, intermédiaire ou avancé)
-            - Une durée estimée en minutes
-            - Une description générale du cours en HTML (utilisez <p>, <ul>, <li>, <strong>, <em>)
-            - Un plan de cours détaillé avec les principales sections
-            - Pour chaque section, le contenu doit être en HTML avec :
-                * Des paragraphes (<p>)
-                * Des listes (<ul>, <li>)
-                * Du texte en gras (<strong>) pour les points importants
-                * Des exemples de code avec <pre><code>
-        
-        Le format doit être structuré et pédagogique.`
+        1. Structure générale (obligatoire) :
+            - Un titre commercial et clair qui donne envie d'apprendre avec le niveau : ${level}
+            - Un slug basé sur le nom du cours (en minuscules, avec des tirets à la place des espaces)
+            - Le sujet principal clairement défini
+            - Le niveau de difficulté exactement comme fourni : ${level}
+            - Une durée estimée en minutes (minimum 60 minutes)
+            - Une description générale complète en HTML qui :
+                * Présente le cours et ses objectifs
+                * Explique ce qu'on va apprendre
+                * Précise les prérequis nécessaires
+                * Décrit les compétences acquises �� la fin
+
+        2. Pour CHAQUE section du cours (minimum 3 sections) :
+            A. Dans le sommaire (course_outline) :
+                - Un titre clair et descriptif
+                - Un résumé concis mais informatif
+                - Une durée estimée en minutes
+                - Des objectifs pédagogiques précis et mesurables
+
+            B. Dans le contenu détaillé (course_steps_content) :
+                - Le même titre que dans le sommaire
+                - Au moins 3 parties (parts) par section, chacune avec :
+                    * Un sous-titre explicite et descriptif
+                    * Un contenu HTML détaillé et structuré d'au moins 5000 caractères incluant :
+                        > Des explications théoriques approfondies
+                        > Des exemples concrets et détaillés
+                        > Des cas pratiques avec solutions
+                        > Du code source commenté si pertinent
+                        > Des schémas ou illustrations décrits en HTML
+                - Une section "À retenir" (to_remember) qui résume les points clés
+                - Des ressources (resources) UNIQUEMENT si vous avez des liens directs et vérifiés vers :
+                    * Documentation officielle
+                    * Tutoriels reconnus
+                    * GitHub de projets mentionnés
+                    * Outils spécifiques utilisés
+                Ne pas inclure de ressources si vous n'avez pas de liens précis.
+                Format obligatoire : <a href="lien" target="_blank" rel="noopener noreferrer">texte</a>
+
+        3. Format HTML et style :
+            - Structure hiérarchique claire avec h1, h2, h3, h4
+            - Paragraphes bien délimités avec <p>
+            - Listes à puces avec <ul> et <li>
+            - Points importants en <strong>
+            - Exemples de code dans <pre><code>
+            - Utilisation de <br> pour l'aération du texte
+            - Citations ou notes importantes dans des <blockquote>
+
+        Assurez-vous que :
+        - Chaque élément de course_outline correspond à une section détaillée
+        - Le contenu est adapté au niveau demandé
+        - La progression est logique et pédagogique
+        - Le contenu est exhaustif et pratique
+        - Tous les exemples sont concrets et applicables
+        - Le HTML est correctement formaté et lisible`;
 
         const response_format = {
             type: "json_schema" as const,
@@ -34,6 +75,7 @@ export async function generateCourses(course_name: string) {
                     properties: {
                         is_censured: { type: "boolean" },
                         name: { type: "string" },
+                        slug: { type: "string" },
                         subject: { type: "string" },
                         level: { type: "string" },
                         duration: { type: "integer" },
@@ -42,49 +84,101 @@ export async function generateCourses(course_name: string) {
                             type: "array",
                             items: {
                                 type: "object",
+                                required: ["title", "abstract", "duration", "pedagogical_objectives"],
                                 properties: {
                                     title: { type: "string" },
                                     abstract: { type: "string" },
                                     duration: { type: "integer" },
-                                    pedagogical_objectives: { type: "string" },
-                                    content: { type: "string" }
-                                }
-                            }
+                                    pedagogical_objectives: { type: "string" }
+                                },
+                                additionalProperties: false
+                            },
+                            minItems: 3
                         },
-                    }
+                        course_steps_content: {
+                            type: "array",
+                            items: {
+                                type: "object",
+                                required: ["title", "parts", "to_remember"],
+                                properties: {
+                                    title: { type: "string" },
+                                    parts: {
+                                        type: "array",
+                                        items: {
+                                            type: "object",
+                                            required: ["subtitle", "content"],
+                                            properties: {
+                                                subtitle: { type: "string" },
+                                                content: { 
+                                                    type: "string",
+                                                }
+                                            },
+                                        },
+                                        minItems: 1,
+                                    },
+                                    to_remember: { type: "string" },
+                                    resources: { type: "string" }
+                                },
+                            },
+                            minItems: 1
+                        }
+                    },
+                    required: [
+                        "is_censured",
+                        "name",
+                        "slug",
+                        "subject",
+                        "level",
+                        "duration",
+                        "description",
+                        "course_outline",
+                        "course_steps_content"
+                    ],
+                    additionalProperties: false
                 }
             }
-        }
+        };
 
         const response = await openai.chat.completions.create({
-                model: "gpt-4o-mini",
-                messages: [
-                    {
-                        role: "system",
-                        content: "Vous êtes un expert en pédagogie et en création de cours. Vous créez des cours pédagogiques et accessibles en fonction du niveau de difficulté."
-                    },
-                    {
-                        role: "user",
-                        content: "Tout ce qui est raciste est illégal et doit être évité. Pour cela, tu devras mettre is_censured à true si le cours contient du racisme, du sexisme, de l'antisémitisme, des idées révolutionnaires, des idées qui pourrait être considérées comme haineuse ou des thématiques à caractère sexuel qui n'ont pas de lien avec des cours."
-                    },
-                    {
-                        role: "user",
-                        content: [
-                            { type: "text", text: prompt },
-                        ]
-                    },
-                ],
-                response_format: response_format
-            });
+            model: "gpt-4o-mini",
+            messages: [
+                {
+                    role: "system",
+                    content: `Vous êtes un expert en pédagogie et en création de cours, spécialisé dans la création de contenus de type OpenClassrooms.
+                    Vos cours doivent être :
+                    - Très structurés avec une progression logique
+                    - Remplis d'exemples concrets et de cas pratiques
+                    - Accompagnés de ressources complémentaires pertinentes`
+                },
+                {
+                    role: "user",
+                    content: "Tout ce qui est raciste est illégal et doit être évité. Pour cela, tu devras mettre is_censured à true si le cours contient du racisme, du sexisme, de l'antisémitisme, des idées révolutionnaires, des idées qui pourrait être considérées comme haineuse ou des thématiques à caractère sexuel qui n'ont pas de lien avec des cours."
+                },
+                {
+                    role: "user",
+                    content: [
+                        {
+                            type: "text",
+                            text: prompt
+                        },
+                    ]
+                },
+            ],
+            response_format: response_format
+        });
 
-            const responseContent = response.choices[0].message.content;
+        const responseContent = response.choices[0].message.content;
 
-            const parsedResponse = JSON.parse(responseContent);
-
-            return parsedResponse;
-
-        } catch (error) {
-            console.error('Erreur lors de l\'analyse de l\'image :', error);
-            throw error;
+        if (!responseContent) {
+            throw new Error("La réponse de l'API est vide");
         }
+
+        const parsedResponse = JSON.parse(responseContent);
+
+        return parsedResponse;
+
+    } catch (error) {
+        console.error('Erreur lors de l\'analyse de l\'image :', error);
+        throw error;
     }
+}
