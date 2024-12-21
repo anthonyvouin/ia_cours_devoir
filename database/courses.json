@@ -1,100 +1,42 @@
 [
   {
-    "id": 5,
+    "id": 1,
     "is_censured": false,
-    "name": "Comprendre la photosynthèse : un voyage au cœur de la nature",
-    "slug": "comprendre-la-photosynthese-un-voyage-au-coeur-de-la-nature",
-    "subject": "Sciences de la Vie",
+    "name": "Initiation à Angular : Développez vos Premiers Applications Web",
+    "slug": "initiation-a-angular-developpez-vos-premiers-applications-web",
+    "subject": "Développement Web",
     "level": "Débutant",
     "duration": 120,
-    "description": "<p>Bienvenue dans ce cours dédié à la photosynthèse ! Ce cours a pour objectif de vous plonger dans le fascinant processus par lequel les plantes, les algues et certaines bactéries transforment la lumière du soleil en énergie. Grâce à des explications claires et des exemples concrets, vous découvrirez les subtilités de la photosynthèse et son rôle crucial dans notre écosystème.</p><p>Au cours de cette formation, vous apprendrez :</p><ul><li>Ce qu'est la photosynthèse</li><li>Les différentes étapes de cette réaction chimique</li><li>Les facteurs influençant la photosynthèse</li><li>Comment la photosynthèse impacte la vie sur Terre</li></ul><p>Il n'y a pas de prérequis nécessaires, juste une curiosité pour le monde naturel.</p><p>À la fin de ce cours, vous serez capable de décrire le processus de photosynthèse, d'expliquer son importance écologique et d'appliquer vos connaissances à des études de cas réelles.</p>",
+    "description": "<p>Bienvenue dans ce cours complet d’initiation à Angular, le framework JavaScript populaire pour créer des applications web dynamiques. Ce cours est destiné aux débutants qui souhaitent acquérir les compétences nécessaires pour bâtir leurs premières applications web avec Angular.</p><p>Au fil des modules, vous découvrirez ce qu'est Angular et comment il fonctionne, vous apprendrez à créer des composants, gérer la navigation et les routes, ainsi que travailler avec des services pour communiquer avec les API.</p><p>Pour suivre ce cours, vous n'avez pas besoin d'expérience préalable en développement web, mais une connaissance de base de HTML, CSS et JavaScript serait un plus. À la fin de ce parcours, vous serez en mesure de développer une application web simple et de comprendre les principaux concepts d'Angular.</p><p><strong>Compétences acquises :</strong></p><ul><li>Comprendre l'architecture d'une application Angular.</li><li>Créer et gérer des composants Angular.</li><li>Gérer la navigation et les routes dans une application.</li><li>Consommer des API à l'aide de services Angular.</li></ul>",
     "course_outline": [
       {
-        "title": "Introduction à la photosynthèse",
-        "abstract": "Découverte du processus et de son importance pour la vie sur Terre.",
+        "title": "Introduction à Angular",
+        "abstract": "Découvrez les fondamentaux d'Angular, son architecture et pourquoi il est largement utilisé pour le développement web.",
         "duration": 30,
-        "pedagogical_objectives": "Comprendre ce qu'est la photosynthèse et pourquoi elle est essentielle."
+        "pedagogical_objectives": "Comprendre ce qu'est Angular, son architecture, et identifier les cas d'utilisation."
       },
       {
-        "title": "Les étapes de la photosynthèse",
-        "abstract": "Exploration détaillée des différentes phases de la photosynthèse.",
-        "duration": 45,
-        "pedagogical_objectives": "Décrire les étapes clés de la photosynthèse et les réactions qui s’y déroulent."
+        "title": "Création de composants et templates",
+        "abstract": "Apprenez à créer des composants Angular et à les utiliser efficacement dans vos applications grâce aux templates.",
+        "duration": 40,
+        "pedagogical_objectives": "Savoir créer des composants réutilisables et travailler avec des templates Angular."
       },
       {
-        "title": "Les facteurs influençant la photosynthèse",
-        "abstract": "Analyse des facteurs externes qui affectent le taux de photosynthèse.",
-        "duration": 45,
-        "pedagogical_objectives": "Identifier les différents facteurs qui peuvent influencer la photosynthèse."
+        "title": "Gestion de la navigation avec Angular Router",
+        "abstract": "Maîtrisez la navigation dans votre application grâce à Angular Router, et apprenez à gérer les différentes routes.",
+        "duration": 50,
+        "pedagogical_objectives": "Comprendre comment configurer les routes et naviguer entre différentes vues."
       }
     ],
     "course_steps_content": [
       {
-        "title": "Introduction à la photosynthèse",
+        "title": "Introduction à Angular",
         "parts": [
           {
-            "subtitle": "Qu'est-ce que la photosynthèse ?",
-            "content": "<p>La photosynthèse est un processus biologique complexe où les plantes, certaines algues et les bactéries photosynthétiques transforment la lumière du soleil en énergie chimique. Ce processus est vital, car il permet la production d'oxygène et la conservation de l'énergie dans les biomasses végétales.</p><p>En termes de chimie, la photosynthèse est généralement décrite par l'équation :</p><pre><code>6CO₂ + 6H₂O + lumière → C₆H₁₂O₆ + 6O₂</code></pre><p>Cela signifie que six molécules de dioxyde de carbone et six molécules d'eau, en présence de lumière, se transforment en une molécule de glucose et six molécules d'oxygène.</p><p>Parlons ensuite du rôle des chloroplastes, éléments essentiels présents dans les cellules végétales. Les chloroplastes contiennent chlorophylle, le pigment qui capte la lumière solaire, et sont le site où se déroule ce processus.<br></p><p>Pour mieux comprendre, imaginez un restaurant où les plantes reçoivent des ingrédients (lumière, eau et CO₂) pour préparer leur propre nourriture (glucose) tout en produisant un sous-produit (oxygène) qui est essentiel pour les animaux et les êtres humains.</p>",
-            "to_remember": "La photosynthèse transforme la lumière du soleil en énergie chimique, et est essentielle pour la vie sur Terre.",
-            "resources": ""
-          },
-          {
-            "subtitle": "L'importance de la photosynthèse",
-            "content": "<p>La photosynthèse est la base de la chaîne alimentaire. En produisant du glucose, les plantes deviennent les producteurs primaires de l'écosystème. D'autres organismes, comme les herbivores et les carnivores, dépendent directement ou indirectement des plantes pour leur énergie.</p><p>Sans ce processus, la vie telle que nous la connaissons n'existerait pas. En effet, la photosynthèse fournit non seulement la nourriture, mais elle régule également la composition atmosphérique en produisant de grandes quantités d'oxygène.</p><p>Voici quelques faits intéressants :</p><ul><li>Environ 50% de l'oxygène de l'atmosphère provient des océans, grâce à la photosynthèse effectuée par le phytoplancton.</li><li>Les forêts tropicales, souvent appelées les \"poumons de la planète\", jouent un rôle crucial dans la photosynthèse.</li></ul><p>Chaque année, les plantes effectuent une photosynthèse qui produit suffisamment de glucose pour soutenir toute la vie sur Terre.</p>",
-            "to_remember": "La photosynthèse est essentielle pour la survie de la plupart des formes de vie sur notre planète.",
-            "resources": ""
-          },
-          {
-            "subtitle": "Photosynthèse et changement climatique",
-            "content": "<p>La photosynthèse joue un rôle clé dans la régulation du climat. En absorbant le dioxyde de carbone (CO₂), elle aide à diminuer la quantité de ce gaz à effet de serre dans l'atmosphère.</p><p>Cependant, la déforestation et la pollution menacent ce processus vital. Par exemple, quand des forêts sont abattues, non seulement on enlève des producteurs primaires, mais on relâche également le CO₂ stocké dans les arbres.</p><p>Une pratique surprenante est la reforestation, qui consiste à planter de nouveaux arbres pour restaurer les forêts perdues. Ces actions favorisent la photosynthèse, contribuant à la lutte contre le changement climatique.</p>",
-            "to_remember": "La photosynthèse aide à réguler le climat en absorbant le CO₂.",
-            "resources": ""
-          }
-        ]
-      },
-      {
-        "title": "Les étapes de la photosynthèse",
-        "parts": [
-          {
-            "subtitle": "Phase lumineuse",
-            "content": "<p>La photosynthèse se divise en deux grandes phases : la phase lumineuse et la phase obscure. La phase lumineuse se déroule dans les thylakoïdes des chloroplastes et nécessite directement la lumière.</p><p>Lors de cette phase, les photons de lumière capturés par la chlorophylle sont transformés en énergie chimique sous forme d’ATP et de NADPH. Un sous-produit essentiel, l'oxygène, est également libéré à partir de l'eau.</p><p>Voici l'équation chimique de la phase lumineuse :</p><pre><code>H₂O + lumière → O₂ + ATP + NADPH</code></pre><p>Imaginez les thylakoïdes comme des panneaux solaires qui captent la lumière. Ce processus est dynamique et permet d'accumuler de l'énergie en vue de la création de nourriture lors de la phase suivante.</p>",
-            "to_remember": "La phase lumineuse convertit la lumière en énergie chimique et produit de l'oxygène.",
-            "resources": ""
-          },
-          {
-            "subtitle": "Phase sombre (Cycle de Calvin)",
-            "content": "<p>La phase sombre, aussi appelée Cycle de Calvin, se produit dans le stroma des chloroplastes. Contrairement à la phase lumineuse, elle n'a pas besoin de lumière pour se dérouler.</p><p>Durant cette phase, le CO₂ de l'air est capturé et combine avec l'ATP et le NADPH produits lors de la phase lumineuse pour fabriquer le glucose.</p><p>L'équation chimique simplifiée de cette phase peut être représentée comme suit :</p><pre><code>CO₂ + ATP + NADPH → C₆H₁₂O₆ + ADP + NADP⁺</code></pre><p>Ce processus peut être comparé à un chef cuisinier qui utilise des ingrédients préalablement préparés (énergie chimique) pour concocter un plat final (glucose).</p>",
-            "to_remember": "La phase sombre utilise le CO₂ et l'énergie accumulée pour produire du glucose.",
-            "resources": ""
-          },
-          {
-            "subtitle": "Importance des couleurs de lumière",
-            "content": "<p>La couleur de la lumière joue un rôle essentiel dans la photosynthèse. La chlorophylle, par exemple, absorbe principalement la lumière bleue et rouge, ce qui la rend très efficace dans la conversion de cette lumière en énergie.</p><p>Des expériences permettent d'observer l'efficacité de différentes longueurs d'onde de lumière :</p><ul><li>La lumière rouge est plus efficace pour la photosynthèse.</li><li>La lumière verte, bien que réfléchie par les feuilles, est moins efficace.</li></ul><p>Pour des expériences pratiques, les étudiants peuvent utiliser des dispositifs de filtre de lumière pour observer comment différentes couleurs impactent le taux de photosynthèse, mesuré via des bulles d'oxygène produites par des plantes aquatiques, par exemple. Cela peut conduire à des découvertes intéressantes sur l'efficacité lumineuse.</p>",
-            "to_remember": "La couleur de la lumière influences l'efficacité de la photosynthèse.",
-            "resources": ""
-          }
-        ]
-      },
-      {
-        "title": "Les facteurs influençant la photosynthèse",
-        "parts": [
-          {
-            "subtitle": "La lumière",
-            "content": "<p>La luminosité est un facteur crucial qui influence le taux de photosynthèse. Plus la lumière disponible est intense, plus la photosynthèse sera efficace, jusqu'à un certain point. Au-delà de cette intensité, le mécanisme peut se détériorer ou s'excéder, entravant le processus.</p><p>Il est possible de réaliser des observations en utilisant des plantes en pot placées sous différentes intensités lumineuses, et de mesurer le taux de photosynthèse en observant les variations dans leur croissance.</p>",
-            "to_remember": "La lumière est un facteur clé qui influence le taux de photosynthèse.",
-            "resources": ""
-          },
-          {
-            "subtitle": "Le dioxyde de carbone",
-            "content": "<p>La concentration de dioxyde de carbone (CO₂) dans l'air est un autre facteur important. Plus le CO₂ est présent, plus le taux de photosynthèse augmente, jusqu’à un seuil après lequel ce gain se stabilise.</p><p>Des techniques de serre permettent de contrôler le niveau de CO₂ pour optimiser la photosynthèse des cultures.</p>",
-            "to_remember": "Le CO₂ augmente le taux de photosynthèse jusqu'à un certain seuil.",
-            "resources": ""
-          },
-          {
-            "subtitle": "La température",
-            "content": "<p>La température environnementale influence également la photosynthèse. Chaque plante a un intervalle de température optimal pour son fonctionnement. Une température trop basse ou trop élevée peut réduire ce processus.</p><p>Les élèves peuvent étudier les effets de la température sur différentes espèces de plantes en utilisant des chambres de culture pour comprendre ces impacts.</p>",
-            "to_remember": "La température influence le taux de photosynthèse, chaque plante ayant des besoins spécifiques.",
-            "resources": ""
+            "subtitle": "Qu'est-ce qu'Angular ?",
+            "content": "<p>Angular est un framework de développement web open-source développé par Google. Il permet de construire des applications web dynamiques et performantes grâce à la création de composants modulaires.</p><p><strong>Architecture Angular</strong></p><p>Angular repose sur le DOM virtuel, une approche qui optimise les mises à jour de l'interface utilisateur. Les principales parties qui composent une application Angular sont :</p><ul><li>Modules : contiennent des composants, services, et d'autres fonctionnalités.</li><li>Composants : les briques de base qui gèrent les vues et le comportement de l'application.</li><li>Services : gèrent la logique métier, comme les appels API.</li></ul><p>Dans ce module, vous apprendrez à créer votre première application Angular, en utilisant le CLI (Command Line Interface).</p>",
+            "to_remember": "Angular est un framework basé sur des composants, permettant de construire des applications web dynamiques.",
+            "resources": "<a href=\"https://angular.io/docs\" target=\"_blank\" rel=\"noopener noreferrer\">Documentation officielle d'Angular</a>"
           }
         ]
       }
