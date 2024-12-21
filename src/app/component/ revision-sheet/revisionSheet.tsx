@@ -49,6 +49,7 @@ export default function RevisionSheet({ slug }: RevisionSheetProps) {
                     <li key={idx} className="mb-2">{point}</li>
                   ))}
                 </ul>
+
               </div>
             ))}
           </div>
