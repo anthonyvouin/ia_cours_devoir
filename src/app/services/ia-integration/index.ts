@@ -2,6 +2,7 @@
 
 import OpenAI from "openai";
 import {Course, CourseList} from "@/interface/course.dto";
+import {createJson} from "@/app/services/json-editor";
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY || ""
@@ -270,7 +271,116 @@ export async function generateQCM(numberQuestion: number, course: Course): Promi
         throw error;
     }
 }
-export async function generateFileRevision(course?: Course) {
 
+
+
+export async function generateFileRevision(course: Course) {
+    try {
+        const prompt = `Voici la thématique du cours : ${course.name}. 
+        Créez une fiche de révision textuelle, complète et concise, basée sur le contenu du cours généré. La fiche doit permettre à un étudiant de réviser efficacement tout le contenu, avec une structure claire et organisée.
+
+        1. Structure générale (obligatoire) :
+            - Un résumé synthétique de chaque section du cours, organisé de manière logique.
+            - Des explications claires et concises des concepts clés, directement tirées du cours.
+            - Une liste des points essentiels à retenir pour chaque section, présentée de manière lisible.
+            - Le slug doit être égal à ${course.slug}.
+
+        2. Pour CHAQUE section du cours :
+            A. Fournir un titre clair et descriptif.
+            B. Inclure un résumé détaillé des points principaux abordés dans cette section, en utilisant un style fluide et pédagogique.
+            C. Ajouter une sous-section "À retenir" qui liste les points clés de manière concise.
+            D. Intégrer des exemples ou cas pratiques mentionnés dans le cours, résumés en quelques phrases.
+
+        3. Format et style :
+            - Utiliser une hiérarchie claire avec des titres (h1, h2, h3) pour structurer la fiche.
+            - Présenter les points importants en utilisant des listes à puces (<ul><li>).
+            - Les sections doivent être bien séparées et lisibles.
+            - Éviter les détails inutiles, mais conserver les explications nécessaires à la compréhension.
+
+        Exemple de structure pour une section :
+        <h2>Section : [Titre de la section]</h2>
+        <p>[Résumé détaillé de la section]</p>
+        <h3>À retenir</h3>
+        <ul>
+            <li>[Point clé 1]</li>
+            <li>[Point clé 2]</li>
+            <li>[Point clé 3]</li>
+        </ul>
+
+        Assurez-vous que :
+        - Toutes les sections du cours sont couvertes.
+        - La progression logique et pédagogique est respectée.
+        - Le format HTML est bien structuré et lisible.
+        `;
+
+        const response_format = {
+            type: "json_schema" as const,
+            json_schema: {
+                name: "revision_file",
+                schema: {
+                    type: "object",
+                    properties: {
+                        slug: { type: "string" },
+                        sections: {
+                            type: "array",
+                            items: {
+                                type: "object",
+                                properties: {
+                                    title: { type: "string" },
+                                    summary: { type: "string" },
+                                    key_points: {
+                                        type: "array",
+                                        items: { type: "string" }
+                                    },
+                                    examples: { type: "string" }
+                                },
+                                required: ["title", "summary", "key_points"],
+                                additionalProperties: false
+                            }
+                        }
+                    },
+                    required: [ "slug ","sections"]
+                }
+            }
+        };
+
+        const response = await openai.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: [
+                {
+                    role: "system",
+                    content: `Vous êtes un expert en pédagogie et en création de contenus pédagogiques. Vous créez des fiches de révision basées sur les cours générés, adaptées au niveau de difficulté demandé.`
+                },
+                {
+                    role: "user",
+                    content: prompt
+                }
+            ],
+            response_format
+        });
+
+        const responseContent = response.choices[0].message.content;
+
+        if (!responseContent) {
+            throw new Error("La réponse de l'API est vide");
+        }
+
+        const parsedResponse = JSON.parse(responseContent);
+
+        const fileRevisionData = parsedResponse
+
+        
+        const createJsonResult = await createJson(fileRevisionData, "fileRevision.json");
+
+        console.log(createJsonResult);
+
+        return createJsonResult;
+
+
+
+    } catch (error) {
+        console.error("Erreur dans la génération de la fiche de révision :", error);
+        throw error;
+    }
 }
-
+ 
