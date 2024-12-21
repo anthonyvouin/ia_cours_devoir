@@ -1,3 +1,4 @@
+'use client'
 import {Course, CourseStep} from "@/interface/course.dto";
 import {Chip} from "primereact/chip";
 

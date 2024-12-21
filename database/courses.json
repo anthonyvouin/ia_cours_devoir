@@ -99,5 +99,60 @@
         ]
       }
     ]
+  },
+  {
+    "id": 2,
+    "is_censured": false,
+    "name": "Initiation à la peinture : Développez votre créativité",
+    "slug": "initiation-a-la-peinture",
+    "subject": "Peinture",
+    "level": "Débutant",
+    "duration": 120,
+    "description": "<p>Dans ce cours<b> d'initiation à la peinture</b>, vous apprendrez les bases de cette discipline artistique passionnante.</p><p>Nous vous guiderons à travers les différentes techniques, les matériaux essentiels et vous montrons comment exprimer votre créativité sur la toile.</p><p>À l'issue de ce cours, vous serez capable de réaliser vos propres œuvres à l'aide des techniques que vous aurez acquises.</p><p><strong>Prérequis :</strong> Aucun prérequis n'est nécessaire, juste votre envie d'apprendre et de créer !</p><p><strong>Compétences acquises :</strong> Techniques de peinture, choix des couleurs, utilisation des pinceaux, compréhension des différentes matières et création d'œuvres personnelles.</p>",
+    "course_outline": [
+      {
+        "title": "Les fondamentaux de la peinture",
+        "abstract": "Découvrez les bases essentielles de la peinture, des matériaux utilisés aux techniques de base qui vous permettront de commencer à créer.",
+        "duration": 40,
+        "pedagogical_objectives": "Comprendre les différents types de peinture et savoir sélectionner les matériaux adéquats."
+      },
+      {
+        "title": "Techniques de peinture : Acrylique et aquarelle",
+        "abstract": "Approfondissez les techniques spécifiques à la peinture acrylique et aquarelle, pour élaborer vos premières œuvres.",
+        "duration": 50,
+        "pedagogical_objectives": "Être capable d’appliquer les techniques de peinture acrylique et aquarelle en réalisant une œuvre personnelle."
+      },
+      {
+        "title": "Élaboration d'une œuvre personnelle",
+        "abstract": "Mettez en pratique vos compétences en créant votre propre pièce maîtresse guidée par des exercices pratiques et des conseils d’artistes.",
+        "duration": 30,
+        "pedagogical_objectives": "Créer une œuvre unique en utilisant les techniques apprises durant le cours."
+      }
+    ],
+    "course_steps_content": [
+      {
+        "title": "Les fondamentaux de la peinture",
+        "parts": [
+          {
+            "subtitle": "Introduction aux matériaux de peinture",
+            "content": "<p>Pour commencer à peindre, il est important de se familiariser avec les <strong>matériaux de peinture</strong>. Il existe plusieurs types de peinture tels que l'acrylique, l'huile, et l'aquarelle, chacun ayant ses propres caractéristiques et usages.</p><p>Voici un aperçu des principaux matériaux :</p><ul><li><strong>Peinture acrylique :</strong> À base d'eau, elle est rapide à sécher et facile à nettoyer. Parfaite pour les débutants.</li><li><strong>Peinture à l'huile :</strong> Offre des finitions riches mais nécessite plus de temps pour sécher. À utiliser avec des solvants.</li><li><strong>Aquarelle :</strong> Transparent et léger, idéal pour créer des effets de lumière.</li></ul><p>La sélection des pinceaux est également cruciale. Ici sont les types de pinceaux que vous devez avoir :</p><ul><li>Pinceaux plats et ronds pour différentes techniques.</li><li>Pinceaux à poils synthétiques pour la peinture acrylique.</li><li>Pinceaux en poils de martre pour l'aquarelle.</li></ul><p>Il est également nécessaire de préparer une toile et des palettes pour mixer vos couleurs.</p><strong>Exemple Pratique :</strong><br/><p>Avant de commencer, prenez le temps de préparer tous vos matériaux. Vous pouvez vous référer à ce <a href=\"https://www.visuels-academie.fr/materials-painting\" target=\"_blank\" rel=\"noopener noreferrer\">guide sur les matériaux de peinture</a> pour vous aider à sélectionner les bons outils.</p>",
+            "to_remember": "La peinture acrylique est recommandée pour les débutants en raison de sa facilité d'utilisation et de son nettoyage rapide.",
+            "resources": ""
+          },
+          {
+            "subtitle": "Techniques de bases : mélange et application des couleurs",
+            "content": "<p>La <strong>teorie des couleurs</strong> est fondamentale en peinture. Comprendre comment mélanger les couleurs vous permettra de créer une palette variée pour vos toiles.</p><p>Voici quelques conseils de base pour le mélange :</p><ul><li>Mélanger des couleurs primaires (rouge, bleu, jaune) pour créer des couleurs secondaires (vert, orange, violet).</li><li>Éclaircir une couleur avec du blanc ou l’assombrir avec du noir.</li><li>Utilisez une palette pour visualiser les mélanges avant de les appliquer sur la toile.</li></ul><p>Lorsque vous appliquez la peinture, utilisez des techniques continues et superposées. <strong>Techniques recommandées :</strong></p><ul><li>Plein pinceau pour des zones larges.</li><li>Pointe de pinceau pour les détails.</li><li>Éponger avec une éponge pour des effets texturés.</li></ul><strong>Exemple pratique :</strong><br/><p>Entraînez-vous à créer un cercle de couleurs en utilisant des couleurs primaires que vous mélangez pour créer les secondes.</p>",
+            "to_remember": "Le mélange des couleurs est une compétence essentielle pour créer de nouvelles teintes et nuances.",
+            "resources": ""
+          },
+          {
+            "subtitle": "Créer son premier tableau",
+            "content": "<p>Pour votre première œuvre, choisissez un sujet simple, tel qu'un paysage ou un bouquet de fleurs. Suivez ces étapes :</p><strong>Étape 1 : Esquisse initiale</strong><br/><p>Faites une esquisse légère de votre sujet sur la toile pour avoir un guide. Utilisez un crayon léger ou un outil de peinture extrêmement dilué.</p><strong>Étape 2 : Application de la base</strong><br/><p>Utilisez des couleurs de base pour le fond et les éléments principaux de votre peinture. Commencez par le plus grand à gauche vers les plus petits.</p><strong>Étape 3 : Ajout des détails</strong><br/><p>Ajoutez des détails avec des pinceaux plus fins. C'est là que votre créativité prendra vie ! Utilisez différentes techniques de mélange pour ajouter de la profondeur.</p><strong>Exemple pratique :</strong><br/><p>Allez à l'extérieur et trouvez un paysage que vous pouvez décrire avec des couleurs. Tenez compte des ombres et des lumières que vous pouvez voir.</p>",
+            "to_remember": "Pour réussir votre tableau, commencez par les bases et construisez jusqu'aux détails.",
+            "resources": ""
+          }
+        ]
+      }
+    ]
   }
 ]
