@@ -7,7 +7,7 @@ import {Chip} from "primereact/chip";
 import Link from "next/link";
 import {useEffect, useState} from "react";
 import {Course, CourseList} from "@/interface/course.dto";
-import {generateQCM} from "@/app/services/ia-integration";
+import {generateFileRevision, generateQCM} from "@/app/services/ia-integration";
 
 export default function CoursList() {
 
@@ -34,15 +34,14 @@ export default function CoursList() {
     }
 
 
-    const handleGenerateQCM = async (cours: CourseList):Promise<void> => {
-        const findCours:Course = await getCourseDataBySlug(cours.slug)
+    const handleGenerateQCM = async (cours: CourseList): Promise<void> => {
+        const findCours: Course = await getCourseDataBySlug(cours.slug)
         console.log(cours)
         if (findCours !== undefined) {
             const qcm = await generateQCM(5, findCours)
             await createJson(qcm, 'qcm.json');
         }
     }
-
 
     const getFlammeColor = (level: string) => {
         switch (level) {
@@ -80,7 +79,8 @@ export default function CoursList() {
                                 <Button label="Voir le cours"/>
                             </Link>
                             <Button label="Generer une fiche de révision"
-                                    className="mr-2.5 bg-grey text-white p-2.5"></Button>
+                                    className="mr-2.5 bg-grey text-white p-2.5"
+                                    onClick={() => generateFileRevision()}></Button>
                             <Button label="Generer un QCM"
                                     className="mr-2.5 bg-blue text-white p-2.5"
                                     onClick={() => handleGenerateQCM(cours)}></Button>

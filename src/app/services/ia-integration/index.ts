@@ -270,4 +270,7 @@ export async function generateQCM(numberQuestion: number, course: Course): Promi
         throw error;
     }
 }
+export async function generateFileRevision(course?: Course) {
+
+}
 

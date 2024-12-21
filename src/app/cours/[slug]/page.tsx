@@ -8,6 +8,7 @@ import {TabPanel, TabView} from "primereact/tabview";
 import {Course} from "@/interface/course.dto";
 import DetailCourse from "@/app/component/detailCourse/DetailCourse";
 import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
+import RevisionSheet from "@/app/component/ revision-sheet/revisionSheet";
 
 
 export default function OneCoursePage() {
@@ -82,7 +83,7 @@ export default function OneCoursePage() {
             </TabPanel>
 
             <TabPanel header="Fiche de révision">
-
+                <RevisionSheet slug={course.slug}></RevisionSheet>
             </TabPanel>
         </TabView>
     );
