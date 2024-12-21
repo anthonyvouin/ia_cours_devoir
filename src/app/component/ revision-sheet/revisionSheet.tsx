@@ -2,7 +2,7 @@
 
 import {useEffect, useState} from "react";
 import {getCourseDataBySlug, getRevisionBySlug} from "@/app/services/json-editor";
-import {Course, CourseList, CoursRevision} from "@/interface/course.dto";
+import {Course, CoursRevision} from "@/interface/course.dto";
 import {generateFileRevision} from "@/app/services/ia-integration";
 import {Button} from "primereact/button";
 import Swal from "sweetalert2";
