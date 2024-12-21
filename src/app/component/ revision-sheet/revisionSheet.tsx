@@ -20,7 +20,10 @@ export default function RevisionSheet({ slug }: RevisionSheetProps) {
     useEffect((): void => {
         const fetchCourseRevision = async (): Promise<void> => {
             const data = await getRevisionBySlug(slug);
-            setCourseRevision(data);
+            if(data){
+                setCourseRevision(data);
+            }
+
         };
 
         fetchCourseRevision();
@@ -73,9 +76,7 @@ export default function RevisionSheet({ slug }: RevisionSheetProps) {
     doc.save(`${courseRevision.slug}_revision.pdf`);
   };
 
-  if (!courseRevision) {
-    return <div>Chargement...</div>;
-  }
+
     const handleGenerateFileRevision = async (): Promise<void> => {
         Swal.fire({
             title: 'Génération de la fiche de révision en cours...',
