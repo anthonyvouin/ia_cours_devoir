@@ -27,25 +27,25 @@ export default function RevisionSheet({ slug }: RevisionSheetProps) {
 
     const doc = new jsPDF();
 
-    doc.setFontSize(18);
+    doc.setFontSize(13);
     doc.text(`Fiche de Révision : ${courseRevision.slug}`, 10, 10);
 
     let yOffset = 20; 
 
     courseRevision.sections.forEach((section, index) => {
-      doc.setFontSize(14);
+      doc.setFontSize(11);
       doc.setTextColor(0, 0, 255); 
       doc.text(`Section ${index + 1}: ${section.title}`, 10, yOffset);
       yOffset += 10;
 
-      doc.setFontSize(12);
+      doc.setFontSize(11);
       doc.setTextColor(0, 0, 0);
       doc.text(doc.splitTextToSize(section.summary, 190), 10, yOffset);
       yOffset += 20;
 
-      doc.setFontSize(12);
-      doc.text("Les points importants :", 10, yOffset);
-      yOffset += 10;
+      doc.setFontSize(11);
+      doc.text("Les points importants :", 10,  yOffset + 5);
+      yOffset += 15;
 
       section.key_points.forEach((point, pointIndex) => {
         doc.setFontSize(10);
