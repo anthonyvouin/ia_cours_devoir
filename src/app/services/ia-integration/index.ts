@@ -1,7 +1,7 @@
 "use server";
 
 import OpenAI from "openai";
-import {Course, CourseList} from "@/interface/course.dto";
+import {Course} from "@/interface/course.dto";
 import {createJson} from "@/app/services/json-editor";
 
 const openai = new OpenAI({
@@ -207,9 +207,7 @@ export async function generateCourses(course_name: string, level: string) {
             throw new Error("La réponse de l'API est vide");
         }
 
-        const parsedResponse = JSON.parse(responseContent);
-
-        return parsedResponse;
+        return await JSON.parse(responseContent);
 
     } catch (error) {
         console.error('Erreur lors de l\'analyse de l\'image :', error);
@@ -254,7 +252,7 @@ export async function generateQCM(numberQuestion: number, course: Course): Promi
         }
 
 
-        return sendToChatGpt(response_format, prompt)
+        return await sendToChatGpt(response_format, prompt)
 
     } catch (error) {
         console.error("Erreur dans la génération du QCM :", error);
@@ -325,12 +323,11 @@ const sendToChatGpt = async (response_format, prompt: string) => {
         throw new Error("La réponse de l'API est vide");
     }
 
-    const parsedResponse = JSON.parse(responseContent);
+    const parsedResponse = await JSON.parse(responseContent);
 
     console.log(parsedResponse);
     return parsedResponse;
 }
-
 
 
 export async function generateFileRevision(course: Course) {
@@ -398,22 +395,22 @@ export async function generateFileRevision(course: Course) {
                 schema: {
                     type: "object",
                     properties: {
-                        slug: { type: "string" },
+                        slug: {type: "string"},
                         sections: {
                             type: "array",
                             items: {
                                 type: "object",
                                 properties: {
-                                    title: { type: "string" },
-                                    summary: { type: "string" },
+                                    title: {type: "string"},
+                                    summary: {type: "string"},
                                     key_points: {
                                         type: "array",
-                                        items: { type: "string" }
+                                        items: {type: "string"}
                                     },
-                                    examples: { type: "string" },
+                                    examples: {type: "string"},
                                     resources: {
                                         type: "array",
-                                        items: { type: "string" }
+                                        items: {type: "string"}
                                     }
                                 },
                                 required: ["title", "summary", "key_points"],
@@ -421,7 +418,7 @@ export async function generateFileRevision(course: Course) {
                             }
                         }
                     },
-                    required: [ "slug", "sections"]
+                    required: ["slug", "sections"]
                 }
             }
         };
@@ -447,15 +444,9 @@ export async function generateFileRevision(course: Course) {
             throw new Error("La réponse de l'API est vide");
         }
 
-        const parsedResponse = JSON.parse(responseContent);
+        const fileRevisionData = JSON.parse(responseContent);
 
-        const fileRevisionData = parsedResponse;
-
-        const createJsonResult = await createJson(fileRevisionData, "fileRevision.json");
-
-        console.log(createJsonResult);
-
-        return createJsonResult;
+        return await createJson(fileRevisionData, "fileRevision.json");
 
     } catch (error) {
         console.error("Erreur dans la génération de la fiche de révision :", error);

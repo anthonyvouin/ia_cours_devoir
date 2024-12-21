@@ -33,25 +33,6 @@ export default function CoursList() {
         }
     }
 
-
-    const handleGenerateQCM = async (cours: CourseList): Promise<void> => {
-        const findCours: Course = await getCourseDataBySlug(cours.slug)
-        console.log(cours)
-        if (findCours !== undefined) {
-            const qcm = await generateQCM(5, findCours)
-            await createJson(qcm, 'qcm.json');
-        }
-    }
-    
-
-    const handleGenerateFileRevision = async (cours: CourseList): Promise<void> => {
-        const findCours: Course = await getCourseDataBySlug(cours.slug)
-        console.log(cours)
-        if (findCours !== undefined) {
-             await generateFileRevision(findCours)
-        }
-    }
-
     const getFlammeColor = (level: string) => {
         switch (level) {
             case 'Débutant':
@@ -68,37 +49,36 @@ export default function CoursList() {
 
     return (
         <div className="flex justify-center mt-6">
-            <div className="w-5/6">
-                {coursList.map((cours: CourseList) => (
-                    <Card title={cours.name}
-                          key={cours.id}
-                          className="mb-2.5">
-                        <p> {cours.subject}</p>
-                        <div className="flex items-center ">
-                            <span className="pi pi-clock mr-2.5"></span>
-                            <p>{cours.duration}</p>
-                        </div>
+            {coursList && coursList.length>0?(
+                <div className="w-5/6">
+                    {coursList.map((cours: CourseList) => (
+                        <Card title={cours.name}
+                              key={cours.id}
+                              className="mb-2.5">
+                            <p> {cours.subject}</p>
+                            <div className="flex items-center ">
+                                <span className="pi pi-clock mr-2.5"></span>
+                                <p>{cours.duration}</p>
+                            </div>
 
-                        <div>
-                            <Chip className={getLevelColor(cours.level)} label={`${cours.level} ${getFlammeColor(cours.level)}`}/>
-                        </div>
+                            <div>
+                                <Chip className={getLevelColor(cours.level)} label={`${cours.level} ${getFlammeColor(cours.level)}`}/>
+                            </div>
 
-                        <div className="flex justify-center mt-6 gap-10">
-                            <Link href={`/cours/${cours.slug}`}>
-                                <Button label="Voir le cours"/>
-                            </Link>
-                            <Button label="Generer une fiche de révision"
-                                    className="mr-2.5 bg-grey text-white p-2.5"
-                                    onClick={() => handleGenerateFileRevision(cours)}></Button>
-                            <Button label="Generer un QCM"
-                                    className="mr-2.5 bg-blue text-white p-2.5"
-                                    onClick={() => handleGenerateQCM(cours)}></Button>
-                        </div>
+                            <div className="flex justify-center mt-6 gap-10">
+                                <Link href={`/cours/${cours.slug}`}>
+                                    <Button label="Voir le cours"/>
+                                </Link>
+                            </div>
 
-                    </Card>
+                        </Card>
 
-                ))}
-            </div>
+                    ))}
+                </div>
+            ):(
+                <p>Pas de cours généré</p>
+            )}
+
         </div>
 
     );

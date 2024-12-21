@@ -1,60 +1,91 @@
 "use client"
 
-import { useEffect, useState } from "react";
-import { getRevisionBySlug } from "@/app/services/json-editor";
-import { CoursRevision } from "@/interface/course.dto";
+import {useEffect, useState} from "react";
+import {getCourseDataBySlug, getRevisionBySlug} from "@/app/services/json-editor";
+import {Course, CourseList, CoursRevision} from "@/interface/course.dto";
+import {generateFileRevision} from "@/app/services/ia-integration";
+import {Button} from "primereact/button";
+import Swal from "sweetalert2";
 
 interface RevisionSheetProps {
-  slug: string;
+    slug: string;
 }
 
 
+export default function RevisionSheet({slug}: RevisionSheetProps) {
+    const [courseRevision, setCourseRevision] = useState<CoursRevision | null>(null);
 
-export default function RevisionSheet({ slug }: RevisionSheetProps) {
-  const [courseRevision, setCourseRevision] = useState<CoursRevision | null>(null);
+    useEffect((): void => {
+        const fetchCourseRevision = async (): Promise<void> => {
+            const data = await getRevisionBySlug(slug);
+            setCourseRevision(data);
+        };
 
-  useEffect(() => {
-    const fetchCourseRevision = async () => {
-      const data = await getRevisionBySlug(slug);
-      setCourseRevision(data);
-    };
+        fetchCourseRevision();
+    }, [slug]);
 
-    fetchCourseRevision();
-  }, [slug]);
+    const handleGenerateFileRevision = async (): Promise<void> => {
+        Swal.fire({
+            title: 'Génération de la fiche de révision en cours...',
+            html: 'Cela peut prendre quelques minutes',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+        const findCours: Course = await getCourseDataBySlug(slug)
+        if (findCours !== undefined) {
+            const newCourseRevision: { success: boolean, generatedData?: [], error?: string | unknown } = await generateFileRevision(findCours)
+            if (newCourseRevision.generatedData) {
+                // @ts-ignore
+                setCourseRevision(newCourseRevision.generatedData)
+            }
+            await Swal.fire({
+                icon: 'success',
+                title: 'Génération terminée !',
+                text: '',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        }
+    }
 
-  if (!courseRevision) {
-    return <div>Chargement...</div>;  
-  }
+    if (!courseRevision) {
+        return (<Button label="Generer une fiche de révision"
+                        className="mr-2.5 bg-grey text-white p-2.5"
+                        onClick={() => handleGenerateFileRevision()}></Button>)
 
-  return (
-    <section className="flex justify-center mt-6 mb-14">
-    <div className="w-5/6 text-black">
-    <div className="border-4 border-slate-900 w-fit p-6 mb-14">
-        <h1 className="mb-4 text-2xl font-bold">
-           Fiche de Révision : {courseRevision.slug} 
-        </h1>
-    </div>
+    }
 
-    <div className="bg-white p-8 rounded-lg shadow-lg mb-14">
-    <h2 className="text-3xl font-bold mb-2">Sections</h2>
-          <hr className="border-2 border-slate-900 my-5" />
-          <div className="grid grid-cols-2 gap-8">
-            {courseRevision.sections.map((section, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                <h3 className="text-xl font-semibold mb-3 text-blue-600">{section.title}</h3>
-                <p className="mb-4 text-gray-600">{section.summary}</p>
-                <h4 className="font-medium text-gray-800 mb-2">Les points importants :</h4>
-                <ul className="text-gray-600">
-                  {section.key_points.map((point, idx) => (
-                    <li key={idx} className="mb-2">{point}</li>
-                  ))}
-                </ul>
+    return (
+        <section className="flex justify-center mt-6 mb-14">
+            <div className="w-5/6 text-black">
+                <div className="border-4 border-slate-900 w-fit p-6 mb-14">
+                    <h1 className="mb-4 text-2xl font-bold">
+                        Fiche de Révision : {courseRevision.slug}
+                    </h1>
+                </div>
 
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
+                <div className="bg-white p-8 rounded-lg shadow-lg mb-14">
+                    <h2 className="text-3xl font-bold mb-2">Sections</h2>
+                    <hr className="border-2 border-slate-900 my-5"/>
+                    <div className="grid grid-cols-2 gap-8">
+                        {courseRevision.sections.map((section, index) => (
+                            <div key={index} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                                <h3 className="text-xl font-semibold mb-3 text-blue-600">{section.title}</h3>
+                                <p className="mb-4 text-gray-600">{section.summary}</p>
+                                <h4 className="font-medium text-gray-800 mb-2">Les points importants :</h4>
+                                <ul className="text-gray-600">
+                                    {section.key_points.map((point, idx) => (
+                                        <li key={idx} className="mb-2">{point}</li>
+                                    ))}
+                                </ul>
+
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
     );
-  }
+}
