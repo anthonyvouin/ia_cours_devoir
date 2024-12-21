@@ -1,6 +1,7 @@
 "use server";
 
 import OpenAI from "openai";
+import {Course, CourseList} from "@/interface/course.dto";
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY || ""
@@ -8,7 +9,7 @@ const openai = new OpenAI({
 
 export async function generateCourses(course_name: string, level: string) {
     try {
-        const prompt = `Voici la thématique du cours : ${course_name} et voici le niveau souhaité : ${level}. 
+        const prompt: string = `Voici la thématique du cours : ${course_name} et voici le niveau souhaité : ${level}. 
         Créez un cours extrêmement détaillé et approfondi, similaire aux cours OpenClassrooms, avec :
 
         1. Structure générale (obligatoire) :
@@ -73,23 +74,23 @@ export async function generateCourses(course_name: string, level: string) {
                 schema: {
                     type: "object",
                     properties: {
-                        is_censured: { type: "boolean" },
-                        name: { type: "string" },
-                        slug: { type: "string" },
-                        subject: { type: "string" },
-                        level: { type: "string" },
-                        duration: { type: "integer" },
-                        description: { type: "string" },
+                        is_censured: {type: "boolean"},
+                        name: {type: "string"},
+                        slug: {type: "string"},
+                        subject: {type: "string"},
+                        level: {type: "string"},
+                        duration: {type: "integer"},
+                        description: {type: "string"},
                         course_outline: {
                             type: "array",
                             items: {
                                 type: "object",
                                 required: ["title", "abstract", "duration", "pedagogical_objectives"],
                                 properties: {
-                                    title: { type: "string" },
-                                    abstract: { type: "string" },
-                                    duration: { type: "integer" },
-                                    pedagogical_objectives: { type: "string" }
+                                    title: {type: "string"},
+                                    abstract: {type: "string"},
+                                    duration: {type: "integer"},
+                                    pedagogical_objectives: {type: "string"}
                                 },
                                 additionalProperties: false
                             },
@@ -101,23 +102,23 @@ export async function generateCourses(course_name: string, level: string) {
                                 type: "object",
                                 required: ["title", "parts", "to_remember"],
                                 properties: {
-                                    title: { type: "string" },
+                                    title: {type: "string"},
                                     parts: {
                                         type: "array",
                                         items: {
                                             type: "object",
                                             required: ["subtitle", "content"],
                                             properties: {
-                                                subtitle: { type: "string" },
-                                                content: { 
+                                                subtitle: {type: "string"},
+                                                content: {
                                                     type: "string",
                                                 }
                                             },
                                         },
                                         minItems: 1,
                                     },
-                                    to_remember: { type: "string" },
-                                    resources: { type: "string" }
+                                    to_remember: {type: "string"},
+                                    resources: {type: "string"}
                                 },
                             },
                             minItems: 1
@@ -179,6 +180,90 @@ export async function generateCourses(course_name: string, level: string) {
 
     } catch (error) {
         console.error('Erreur lors de l\'analyse de l\'image :', error);
+        throw error;
+    }
+}
+
+export async function generateQCM(numberQuestion: number, level: string, course: string) {
+    try {
+        const prompt = `Voici la thématique du cours : ${course} et voici le niveau souhaité : ${level}.
+        Créez un QCM de ${numberQuestion} questions. Chaque question peut avoir 4 propositions.
+        Il doit y avoir des questions à réponse unique et d'autres à réponses multiples :
+        
+        1. Structure générale (obligatoire) :
+            - question de type string
+            - isUniqueResponse de type boolean
+        
+        2. Pour CHAQUE question :
+            A. un tableau de 4 réponses (responses)
+            B. un tableau de bonnes réponses (trueResponses).
+            Répondez uniquement avec un objet, sans texte supplémentaire.
+            `;
+
+        const response_format = {
+            type: "json_schema" as const,
+            json_schema: {
+                name: "course",
+                schema: {
+                    type: "object",
+                    properties: {
+                        questions: {
+                            type: "array",
+                            items: {
+                                type: "object",
+                                properties: {
+                                    question: {type: "string"},
+                                    responses: {
+                                        type: "array",
+                                        items: {type: "string"},
+                                        minItems: 4,
+                                        maxItems: 4
+                                    },
+                                    trueResponses: {
+                                        type: "array",
+                                        items: {type: "string"},
+                                        minItems: 1
+                                    },
+                                    isUniqueResponse: {type: "boolean"}
+                                },
+                                required: ["question", "responses", "trueResponses", "isUniqueResponse"]
+                            }
+                        },
+                    },
+                    required: ["questions"]
+                }
+            }
+        }
+
+
+        const response = await openai.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: [
+                {
+                    role: "system",
+                    content: `Vous êtes un expert en pédagogie et en création de cours, spécialisé dans la création de contenus de type OpenClassrooms. Vous créez des QCM basés sur les cours.`
+                },
+                {
+                    role: "user",
+                    content: prompt
+                }
+            ],
+            response_format
+        });
+
+        const responseContent = response.choices[0].message.content;
+
+        if (!responseContent) {
+            throw new Error("La réponse de l'API est vide");
+        }
+
+        const parsedResponse = JSON.parse(responseContent);
+
+        console.log(parsedResponse);
+        return parsedResponse;
+
+    } catch (error) {
+        console.error("Erreur dans la génération du QCM :", error);
         throw error;
     }
 }
