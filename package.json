@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "jspdf": "^2.5.2",
+    "jspdf-autotable": "^3.8.4",
     "next": "15.1.0",
     "openai": "^4.76.3",
     "primeicons": "^7.0.0",

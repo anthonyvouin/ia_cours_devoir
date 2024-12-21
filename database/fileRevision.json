@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "slug": "initiation-a-angular-developpez-vos-premiers-applications-web",
+    "sections": [
+      {
+        "title": "Introduction à Angular",
+        "summary": "Angular est un framework de développement d'applications web construit par Google. Il utilise TypeScript, un sur-ensemble de JavaScript, afin de rendre le développement d'applications web plus efficace et structuré. Angular facilite la création d'applications monopage (SPA) qui offrent une expérience similaire à celle des applications natives. Les composants, les services et l'injection de dépendances sont des concepts clés qui seront explorés tout au long du cours.",
+        "key_points": [
+          "Angular est développé par Google.",
+          "Utilise TypeScript pour améliorer la structuration du code.",
+          "Idéal pour les applications monopage (SPA)."
+        ]
+      },
+      {
+        "title": "Installation et configuration d'Angular CLI",
+        "summary": "Angular CLI (Command Line Interface) est un outil indispensable pour faciliter le développement avec Angular. Il permet de créer facilement des projets, ajouter des composants, des services et exécuter des tests. Pour installer Angular CLI, on utilise la commande npm install -g @angular/cli. Cette section aborde également la structure des fichiers lors de la création d'une nouvelle application.",
+        "key_points": [
+          "Installer Angular CLI avec npm.",
+          "Créer un nouveau projet avec la commande 'ng new'.",
+          "Comprendre la structure de fichiers d'un projet Angular."
+        ]
+      },
+      {
+        "title": "Compréhension des composants Angular",
+        "summary": "Les composants sont la pierre angulaire d'une application Angular. Un composant Angular est une classe TypeScript qui contient la logique de l'app. Chaque composant est associé à un template HTML et peut avoir son propre style CSS. Les composants permettent de décomposer l'interface utilisateur en éléments plus petits et réutilisables.",
+        "key_points": [
+          "Les composants définissent l'interface utilisateur dans Angular.",
+          "Chaque composant possède sa logique et son template.",
+          "Ils favorisent la réutilisabilité des éléments UI."
+        ]
+      },
+      {
+        "title": "Modèles et liaison de données (Data Binding)",
+        "summary": "La liaison de données permet de synchroniser les données entre le modèle (logique) de l'application et sa vue (interface utilisateur). Angular offre différentes stratégies de liaison comme le binding unidirectionnel et bidirectionnel. Cette section explique comment utiliser [(ngModel)] pour la liaison bidirectionnelle, permettant une interaction dynamique entre le modèle et la vue.",
+        "key_points": [
+          "La liaison de données synchronise le modèle et la vue.",
+          "Binding unidirectionnel: données de la source vers la vue.",
+          "Binding bidirectionnel avec (ngModel) pour l'interaction utilisateur."
+        ]
+      },
+      {
+        "title": "Services et injection de dépendances",
+        "summary": "Les services dans Angular sont utilisés pour encapsuler des logiques réutilisables qui ne dépendent pas d'un composant spécifique. L'injection de dépendances (DI) est un design pattern qui permet de fournir des instances de services aux composants. Cette section couvre comment créer un service et l'injecter dans un composant, d'une manière qui favorise le développement modulaire et testable.",
+        "key_points": [
+          "Les services regorgent de logique réutilisable.",
+          "L'injection de dépendances facilite l'utilisation des services.",
+          "Favorise le code modulaire et testable."
+        ]
+      },
+      {
+        "title": "Routage dans Angular",
+        "summary": "Le routage est essentiel pour la navigation entre les différentes vues d'une application Angular. Le module de routage permet de définir des routes, gérer la navigation, et les transitions entre les pages. Cette section découvre comment configurer le routage, utiliser les routes dynamiques et la garde de route pour protéger certaines sections de l'application.",
+        "key_points": [
+          "Le routage permet de naviguer entre différentes vues.",
+          "Configurer les routes dans le module Angular.",
+          "Utiliser des gardes de route pour la sécurité."
+        ]
+      },
+      {
+        "title": "Création et utilisation de formulaires",
+        "summary": "Les formulaires sont cruciaux pour interagir avec les utilisateurs dans les applications Web. Angular fournit une API robuste pour gérer des formulaires réactifs. Cette section aborde la création de formulaires, la validation des entrées, et les interactions avec le backend pour soumettre des données.",
+        "key_points": [
+          "Création de formulaires avec Reactive Forms.",
+          "Validation des entrées utilisateur.",
+          "Interaction avec les services back-end pour l'envoi de données."
+        ]
+      },
+      {
+        "title": "Déploiement d'une application Angular",
+        "summary": "Le déploiement d'une application Angular nécessite de préparer le projet et de le transférer sur un serveur. Cette section explique les étapes nécessaires pour compiler le projet et déployer avec des outils comme GitHub Pages, Firebase ou un serveur de votre choix.",
+        "key_points": [
+          "Compiler l'application pour le déploiement avec 'ng build'.",
+          "Options de déploiement: Firebase, GitHub, etc.",
+          "Vérification de la performance de l'application déployée."
+        ]
+      }
+    ]
+  }
+]
