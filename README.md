@@ -2,9 +2,7 @@
  Next js - Open ia
 
 ## Groupe project
-Anthony Vouin
-Charline Royer
-Matthias Faucon
+Anthony Vouin - Charline Royer - Matthias Faucon
 
 ## Getting Started
 
