@@ -1,6 +1,5 @@
 ## Stack Project
- Next js
- Open ia
+ Next js - Open ia
 
 ## Groupe project
 Anthony Vouin
